@@ -1,0 +1,44 @@
+import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import MyHeader from './components/MyHeader';
+import '@fortawesome/fontawesome-free/js/all.js';
+import Login from "./pages/Login/Login";
+import Ownerhome from './pages/창업희망자/Ownerhome';
+import Customerhome from './pages/일반 손님/Customerhome';
+import Registration from './pages/창업희망자/Registration';
+import NoRegistration from './pages/창업희망자/NoRegistration';
+import PhotoRegistration from './pages/창업희망자/PhotoRegistration';
+import Feedback from './pages/창업희망자/Feedback';
+import ReservationStatus from './pages/창업희망자/ReservationStatus';
+import Signup from './pages/Login/Signup';
+import { PopupProvider } from './pages/창업희망자/PopupContext';
+
+const App = () => {
+  return (
+    <PopupProvider>
+      <BrowserRouter>
+        <div className='App'>
+          <MyHeader 
+            headText={"오늘만 사장"}
+            notice={<i className="fas fa-bell"></i>}
+            Myinformation={<i className="fas fa-user"></i>}
+          />
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/Signup" element={<Signup />} />
+            <Route path="/Ownerhome" element={<Ownerhome />} />
+            <Route path="/Customerhome" element={<Customerhome />} />
+            <Route path="/Registration" element={<Registration />} />
+            <Route path="/NoRegistration" element={<NoRegistration />} />
+            <Route path="/PhotoRegistration" element={<PhotoRegistration />} />
+            <Route path="/Feedback" element={<Feedback />} />
+            <Route path="/ReservationStatus" element={<ReservationStatus />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </PopupProvider>
+  );
+}
+
+export default App;
