@@ -1,0 +1,166 @@
+@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Do Hyeon", sans-serif;
+  min-height: 100vh;
+  margin: 0;
+}
+
+#root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.App {
+  width: 100%;
+  max-width: 1200px;
+  height: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #ffffff;
+  box-shadow: rgba(248, 181, 104, 0.2) 0px 7px 29px 0px;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e2e2e2;
+  padding: 20px 0;
+  background-color: #ecbd93;
+  color: #000000;
+}
+
+.head_text {
+  font-size: 2rem;
+}
+
+.header-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.header-icons > .notice {
+  margin-right: 0;
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+}
+
+@media (min-width: 650px) {
+  .App {
+    width: 90vw;
+    max-width: 1200px;
+    min-height: 100vh;
+  }
+}
+
+@media (max-width: 650px) {
+  .App {
+    width: 95vw;
+    min-height: 100vh;
+  }
+}
+
+/* Registration Specific Styles */
+.registration-container {
+  padding: 20px;
+}
+
+.registration-container h1 {
+  margin-bottom: 20px;
+}
+
+.registration-container input,
+.registration-container textarea,
+.registration-container select {
+  width: 100%;
+  box-sizing: border-box;
+  height: 40px;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  border: 1px solid #e2e2e2;
+}
+
+.registration-container input[type="file"] {
+  border: none;
+}
+
+.registration-container input:read-only {
+  background-color: #f0f0f0;
+}
+
+.registration-container .address-search-button {
+  cursor: pointer;
+  font-size: 1em;
+  color: #888;
+  width: 50px;
+  height: 40px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.registration-container .menu-item {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.registration-container .menu-item div {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.registration-container .menu-item img {
+  height: 100%;
+}
+
+.registration-container .menu-item button {
+  margin-top: 10px;
+}
+
+.registration-container .menu-item:last-child {
+  margin-right: 0;
+}
+
+.registration-container .add-menu-button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.registration-container .add-menu-button button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.registration-container .actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.registration-container .actions button {
+  margin-right: 10px;
+}
+
+.registration-container .actions button:last-child {
+  margin-right: 0;
+}
+
+.registration-container .error {
+  border-color: red;
+}
