@@ -18,9 +18,9 @@ const App = () => {
       <BrowserRouter>
         <div className='App'>
           <MyHeader 
-            headText={"오늘만 사장"}
-            notice={<i className="fas fa-bell"></i>}
-            Myinformation={<i className="fas fa-user"></i>}
+            headText={"오늘만 사장"} //헤더 텍스트 설정
+            notice={<i className="fas fa-bell"></i>} //알림 아이콘 설정
+            Myinformation={<i className="fas fa-user"></i>} //사용자 정보 아이콘 설정
           />
           <Routes>
             <Route path="/" element={<Login />} />

@@ -5,45 +5,57 @@ import MyButton from '../../components/MyButton';
 import './Login.css';
 
 const Login = () => {
-    const [loginId, setLoginId] = useState('');
-    const [password, setPassword] = useState('');
-    const [type, setType] = useState('CUSTOMER');
-    const [errorMessage, setErrorMessage] = useState('');
+    // 상태 관리
+    const [loginId, setLoginId] = useState(''); // 로그인 아이디 상태
+    const [password, setPassword] = useState(''); // 비밀번호 상태
+    const [type, setType] = useState('CUSTOMER'); // 사용자 유형 상태 (기본값: CUSTOMER)
+    const [errorMessage, setErrorMessage] = useState(''); // 오류 메시지 상태
 
-    const navigate = useNavigate();
+    const navigate = useNavigate(); // 페이지 이동을 위한 navigate 함수
 
+    // 아이디 입력 변화 처리
     const handleChangeId = (e) => {
-        setLoginId(e.target.value);
+        setLoginId(e.target.value); // 입력된 값으로 상태 업데이트
     };
 
+    // 비밀번호 입력 변화 처리
     const handleChangePassword = (e) => {
-        setPassword(e.target.value);
+        setPassword(e.target.value); // 입력된 값으로 상태 업데이트
     };
 
+    // 사용자 유형 변화 처리
     const handleChangeType = (e) => {
-        setType(e.target.value);
+        setType(e.target.value); // 선택된 값으로 상태 업데이트
     };
 
+    // 로그인 처리 함수
     const handleLogin = async () => {
         try {
-            const response = await axios.post(`http://ec2-3-39-193-47.ap-northeast-2.compute.amazonaws.com:8080/api/users/login`, {
+            // 로그인 API 요청
+            const response = await axios.post(``, {
                 loginId,
                 password,
             }, {
-                params: { role: type }
+                params: { role: type } // 사용자 유형을 쿼리 파라미터로 전달
             });
+            
+            // 로그인 성공 시 토큰 저장
             localStorage.setItem('token', response.headers.authorization);
-            alert('로그인 성공');
+            alert('로그인 성공'); // 성공 메시지
+            
+            // 사용자 유형에 따라 페이지 이동
             if (type === 'CUSTOMER') {
                 navigate('/Customerhome');
             } else if (type === 'OWNER') {
                 navigate('/Ownerhome');
             }
         } catch (error) {
+            // 오류 발생 시 메시지 설정
             setErrorMessage('로그인 실패: ' + (error.response ? error.response.data.message : error.message));
         }
     };
 
+    // 회원가입 페이지로 이동
     const goToSignup = () => {
         navigate('/signup');
     };
@@ -79,7 +91,7 @@ const Login = () => {
             <div className="signup-button">
                 <MyButton onClick={goToSignup} text="회원가입" type="default" />
             </div>
-            {errorMessage && <div className="error-message">{errorMessage}</div>}
+            {errorMessage && <div className="error-message">{errorMessage}</div>} {/* 오류 메시지 표시 */}
         </div>
     );
 };

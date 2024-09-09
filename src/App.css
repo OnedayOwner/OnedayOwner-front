@@ -1,166 +1,110 @@
 @import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
 
+/* 기본 스타일 설정 */
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "Do Hyeon", sans-serif;
-  min-height: 100vh;
-  margin: 0;
+  display: flex; /* Flexbox로 정렬 */
+  justify-content: center; /* 수평 중앙 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+  font-family: "Do Hyeon", sans-serif; /* 폰트 설정 */
+  min-height: 100vh; /* 최소 높이 설정 */
+  margin: 0; /* 기본 여백 제거 */
 }
 
 #root {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100%; /* 루트 요소의 너비 설정 */
+  display: flex; /* Flexbox로 정렬 */
+  justify-content: center; /* 수평 중앙 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
 }
 
 .App {
-  width: 100%;
-  max-width: 1200px;
-  height: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  background-color: #ffffff;
-  box-shadow: rgba(248, 181, 104, 0.2) 0px 7px 29px 0px;
-  box-sizing: border-box;
-  padding: 20px;
+  width: 100%; /* 전체 너비 사용 */
+  max-width: 1200px; /* 최대 너비 설정 */
+  height: 100%; /* 전체 높이 사용 */
+  min-height: 100vh; /* 최소 높이 설정 */
+  display: flex; /* Flexbox로 정렬 */
+  flex-direction: column; /* 세로 방향 정렬 */
+  justify-content: flex-start; /* 위에서부터 정렬 */
+  background-color: #ffffff; /* 배경색 설정 */
+  box-shadow: rgba(248, 181, 104, 0.2) 0px 7px 29px 0px; /* 그림자 효과 */
+  box-sizing: border-box; /* 박스 모델 설정 */
+  padding: 20px; /* 내부 여백 설정 */
 }
 
 header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #e2e2e2;
-  padding: 20px 0;
-  background-color: #ecbd93;
-  color: #000000;
+  width: 100%; /* 헤더 너비 설정 */
+  display: flex; /* Flexbox로 정렬 */
+  justify-content: space-between; /* 양쪽 끝 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+  border-bottom: 1px solid #e2e2e2; /* 하단 테두리 설정 */
+  padding: 20px 0; /* 위아래 여백 설정 */
+  background-color: #ecbd93; /* 배경색 설정 */
+  color: #000000; /* 글자색 설정 */
 }
 
 .head_text {
-  font-size: 2rem;
+  font-size: 2rem; /* 제목 글꼴 크기 설정 */
 }
 
 .header-icons {
-  display: flex;
-  gap: 10px;
+  display: flex; /* Flexbox로 정렬 */
+  gap: 10px; /* 아이콘 간 간격 설정 */
 }
 
-.header-icons > .notice {
-  margin-right: 0;
-}
-
+/* 버튼, 입력, 텍스트 영역의 폰트 설정 */
 button,
 input,
 textarea {
-  font-family: inherit;
+  font-family: inherit; /* 부모 폰트 상속 */
 }
 
+/* 미디어 쿼리 - 화면이 650px 이상일 때 */
 @media (min-width: 650px) {
   .App {
-    width: 90vw;
-    max-width: 1200px;
-    min-height: 100vh;
+    width: 90vw; /* 너비 설정 */
+    max-width: 1200px; /* 최대 너비 설정 */
+    min-height: 100vh; /* 최소 높이 설정 */
   }
 }
 
+/* 미디어 쿼리 - 화면이 650px 이하일 때 */
 @media (max-width: 650px) {
   .App {
-    width: 95vw;
-    min-height: 100vh;
+    width: 95vw; /* 너비 설정 */
+    min-height: 100vh; /* 최소 높이 설정 */
   }
 }
 
-/* Registration Specific Styles */
+/* 등록 관련 스타일 */
 .registration-container {
-  padding: 20px;
+  padding: 20px; /* 내부 여백 설정 */
 }
 
 .registration-container h1 {
-  margin-bottom: 20px;
+  margin-bottom: 20px; /* 아래 여백 설정 */
 }
 
+/* 입력, 텍스트 영역, 선택 박스 스타일 */
 .registration-container input,
 .registration-container textarea,
 .registration-container select {
-  width: 100%;
-  box-sizing: border-box;
-  height: 40px;
-  margin-bottom: 20px;
-  padding: 0 10px;
-  border: 1px solid #e2e2e2;
+  width: 100%; /* 전체 너비 사용 */
+  box-sizing: border-box; /* 박스 모델 설정 */
+  height: 40px; /* 높이 설정 */
+  margin-bottom: 20px; /* 아래 여백 설정 */
+  padding: 0 10px; /* 좌우 여백 설정 */
+  border: 1px solid #e2e2e2; /* 테두리 설정 */
 }
 
 .registration-container input[type="file"] {
-  border: none;
+  border: none; /* 파일 입력 테두리 제거 */
 }
 
 .registration-container input:read-only {
-  background-color: #f0f0f0;
+  background-color: #f0f0f0; /* 읽기 전용 입력 배경색 설정 */
 }
 
-.registration-container .address-search-button {
-  cursor: pointer;
-  font-size: 1em;
-  color: #888;
-  width: 50px;
-  height: 40px;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
-.registration-container .menu-item {
-  display: flex;
-  margin-bottom: 20px;
-}
-
-.registration-container .menu-item div {
-  flex: 1;
-  margin-right: 10px;
-}
-
-.registration-container .menu-item img {
-  height: 100%;
-}
-
-.registration-container .menu-item button {
-  margin-top: 10px;
-}
-
-.registration-container .menu-item:last-child {
-  margin-right: 0;
-}
-
-.registration-container .add-menu-button {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.registration-container .add-menu-button button {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-}
-
-.registration-container .actions {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.registration-container .actions button {
-  margin-right: 10px;
-}
-
-.registration-container .actions button:last-child {
-  margin-right: 0;
-}
-
+/* 에러 표시 스타일 */
 .registration-container .error {
-  border-color: red;
+  border-color: red; /* 테두리 색상 설정 (빨간색) */
 }

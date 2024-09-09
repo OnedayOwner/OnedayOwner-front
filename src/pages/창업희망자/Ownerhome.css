@@ -1,120 +1,135 @@
 /* src/Ownerhome.css */
 
+/* 전체 컨테이너 스타일 */
 .ownerhome-container {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  h1 {
-    text-align: center;
-  }
-  
-  .tab-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
-  .tab-button {
-    flex: 1;
-    padding: 20px;
-    background-color: #f0f0f0;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    transition: background-color 0.3s;
-  }
-  
-  .tab-button.active, .tab-button:hover {
-    background-color: #ddd;
-  }
-  
-  .popup-details, .popup-list {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .popup-info {
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-  }
-  
-  .popup-image {
-    background-color: #f0f0f0;
-    height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .popup-description {
-    margin-bottom: 20px;
-  }
-  
-  .popup-description h3 {
-    margin-top: 0;
-  }
-  
-  .menu-list {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-  }
-  
-  .menu-item {
-    display: flex;
-    margin-bottom: 10px;
-  }
-  
-  .menu-image {
-    width: 100px;
-    height: 100px;
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 10px;
-  }
-  
-  .menu-description {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .register-button,.detail-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 10px;
-  }
-  
-  .register-button:hover, .detail-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .action-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
-  
-  .action-buttons button {
-    flex: 1;
-    margin-right: 10px;
-  }
-  
-  .action-buttons button:last-child {
-    margin-right: 0;
-  }
-  
+  padding: 20px; /* 안쪽 여백 */
+  font-family: Arial, sans-serif; /* 폰트 설정 */
+}
+
+h1 {
+  text-align: center; /* 제목 중앙 정렬 */
+}
+
+/* 탭 버튼 스타일 */
+.tab-buttons {
+  display: flex; /* Flexbox 사용 */
+  justify-content: space-between; /* 버튼 간격 조정 */
+  margin-bottom: 20px; /* 아래쪽 여백 */
+}
+
+.tab-button {
+  flex: 1; /* 버튼이 동일한 너비를 가지도록 설정 */
+  padding: 20px; /* 안쪽 여백 */
+  background-color: #f0f0f0; /* 배경 색상 */
+  border: none; /* 테두리 없음 */
+  cursor: pointer; /* 마우스 커서 포인터로 변경 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  transition: background-color 0.3s; /* 배경 색상 변화에 애니메이션 추가 */
+}
+
+/* 활성화된 버튼 및 호버 상태 스타일 */
+.tab-button.active, .tab-button:hover {
+  background-color: #ddd; /* 배경 색상 변경 */
+}
+
+/* 팝업 세부정보 및 목록 스타일 */
+.popup-details, .popup-list {
+  display: flex; /* Flexbox 사용 */
+  flex-direction: column; /* 세로 방향으로 배치 */
+}
+
+/* 팝업 정보 스타일 */
+.popup-info {
+  display: flex; /* Flexbox 사용 */
+  flex-direction: column; /* 세로 방향으로 배치 */
+  background-color: #fff; /* 배경 색상 */
+  border: 1px solid #ccc; /* 테두리 색상 */
+  border-radius: 8px; /* 모서리 둥글게 */
+  overflow: hidden; /* 넘치는 내용 숨김 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  padding: 20px; /* 안쪽 여백 */
+}
+
+/* 팝업 이미지 스타일 */
+.popup-image {
+  background-color: #f0f0f0; /* 배경 색상 */
+  height: 200px; /* 높이 설정 */
+  display: flex; /* Flexbox 사용 */
+  justify-content: center; /* 중앙 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+  margin-bottom: 20px; /* 아래쪽 여백 */
+}
+
+/* 팝업 설명 스타일 */
+.popup-description {
+  margin-bottom: 20px; /* 아래쪽 여백 */
+}
+
+.popup-description h3 {
+  margin-top: 0; /* 위쪽 여백 제거 */
+}
+
+/* 메뉴 목록 스타일 */
+.menu-list {
+  display: flex; /* Flexbox 사용 */
+  flex-direction: column; /* 세로 방향으로 배치 */
+  margin-bottom: 20px; /* 아래쪽 여백 */
+}
+
+/* 메뉴 항목 스타일 */
+.menu-item {
+  display: flex; /* Flexbox 사용 */
+  margin-bottom: 10px; /* 아래쪽 여백 */
+}
+
+/* 메뉴 이미지 스타일 */
+.menu-image {
+  width: 100px; /* 너비 설정 */
+  height: 100px; /* 높이 설정 */
+  background-color: #f0f0f0; /* 배경 색상 */
+  display: flex; /* Flexbox 사용 */
+  justify-content: center; /* 중앙 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+  margin-right: 10px; /* 오른쪽 여백 */
+}
+
+/* 메뉴 설명 스타일 */
+.menu-description {
+  display: flex; /* Flexbox 사용 */
+  flex-direction: column; /* 세로 방향으로 배치 */
+}
+
+/* 등록 버튼 스타일 */
+.register-button {
+  padding: 10px 20px; /* 안쪽 여백 */
+  background-color: #007bff; /* 배경 색상 */
+  color: white; /* 텍스트 색상 */
+  border: none; /* 테두리 없음 */
+  border-radius: 4px; /* 모서리 둥글게 */
+  cursor: pointer; /* 마우스 커서 포인터로 변경 */
+  transition: background-color 0.3s; /* 배경 색상 변화에 애니메이션 추가 */
+  margin-top: 10px; /* 위쪽 여백 */
+}
+
+/* 버튼 호버 상태 스타일 */
+.register-button:hover {
+  background-color: #0056b3; /* 배경 색상 변경 */
+}
+
+/* 액션 버튼 스타일 */
+.action-buttons {
+  display: flex; /* Flexbox 사용 */
+  justify-content: space-between; /* 버튼 간격 조정 */
+  margin-top: 20px; /* 위쪽 여백 */
+}
+
+/* 액션 버튼 개별 스타일 */
+.action-buttons button {
+  flex: 1; /* 버튼이 동일한 너비를 가지도록 설정 */
+  margin-right: 10px; /* 오른쪽 여백 */
+}
+
+/* 마지막 버튼의 오른쪽 여백 제거 */
+.action-buttons button:last-child {
+  margin-right: 0; /* 오른쪽 여백 제거 */
+}
