@@ -1,0 +1,89 @@
+.header-container {
+    height: 7vh;
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1px 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+}
+
+.header-link {
+    text-decoration: none;
+    color: white;
+    text-align: center;
+}
+
+.header-title {
+    font-size: 20px;
+    color: black;
+    font-weight: 400;
+}
+
+.header-back-icon {
+    font-size: 20px;
+    margin-right: 5px;
+    color: rgba(128, 128, 128, 0.623);
+}
+
+.header-back-icon:hover {
+    color: black;
+    transform: scale(1.1);
+}
+
+.header-menu-icon {
+    font-size: 20px;
+    margin-left: 5px;
+    color: rgba(128, 128, 128, 0.623);
+}
+
+.header-menu-icon:hover {
+    color: black;
+    transform: scale(1.1);
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease;
+    z-index: 200;
+    padding: 20px;
+}
+
+.sidebar.open {
+    right: 0;
+}
+
+.sidebar-close-button {
+    width: 50px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 15px;
+}
+
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 150;
+}

@@ -1,0 +1,47 @@
+/* 공통 스타일 */
+.MyButton {
+    width: 100%;
+    margin-bottom: 13px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 10px;
+    font-size: 13px;
+    font-family: "Nanum Pen Script";
+    white-space: nowrap;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* 기본 스타일 */
+  .MyButton_default {
+    background-color: #00796b; 
+    color: white;
+  }
+  
+  .MyButton_default:hover {
+    background-color: #004d40;
+  }
+  
+  /* 대체 스타일 */
+  .MyButton_alt {
+    background-color: white;
+    color: #004a42;
+    border: 1px solid #00796b;
+  }
+  
+  .MyButton_alt:hover {
+    background-color: #004d40;
+    color: white;
+  }
+  
+  /* 추가적인 타입 */
+  .MyButton_warning {
+    background-color: #f44336; 
+    color: white;
+  }
+  
+  .MyButton_warning:hover {
+    background-color: #d32f2f;
+  }
+  

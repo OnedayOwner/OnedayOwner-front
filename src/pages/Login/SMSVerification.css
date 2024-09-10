@@ -1,0 +1,25 @@
+.sms-verification-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.phone-number-info {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.verification-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.verification-error-message {
+  color: red;
+  font-size: 13px;
+  margin-top: 5px;
+}
