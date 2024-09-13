@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from './axios.js'; // Custom Axios instance
-import './Signup.css';
+import '../../styles/login/Signup.css';
 import onboarding from '../../assets/images/onboarding.png';
 import MyButton from '../../components/MyButton.js';
 

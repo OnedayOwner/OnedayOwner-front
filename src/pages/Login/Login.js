@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import MyButton from '../../components/MyButton';
 import onboarding from '../../assets/images/onboarding.png';
-import './Login.css';
+import '../../styles/login/Login.css';
 
 const Login = () => {
     const [loginId, setLoginId] = useState('');

@@ -1,19 +1,16 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
-import MyHeader from './components/Header';
 import '@fortawesome/fontawesome-free/js/all.js';
-import Login from "./pages/Login/Login";
-import Ownerhome from './pages/창업희망자/Ownerhome';
-import Customerhome from './pages/일반 손님/Customerhome';
-import Registration from './pages/창업희망자/Registration';
-import Feedback from './pages/창업희망자/Feedback';
-import ReservationStatus from './pages/창업희망자/ReservationStatus';
-import Signup from './pages/Login/Signup';
-import SMSVerification from './pages/Login/SMSVerification';
+import Login from "./pages/login/Login";
+import Ownerhome from './pages/owner/Ownerhome';
+import Customerhome from './pages/customer/Customerhome';
+import Registration from './pages/owner/Registration';
+import Feedback from './pages/owner/Feedback';
+import ReservationStatus from './pages/owner/ReservationStatus';
+import Signup from './pages/login/Signup';
+import SMSVerification from './pages/login/SMSVerification';
 import Layout from './components/Layout';
-import Onboarding from './pages/Login/Onboarding';
+import Onboarding from './pages/login/Onboarding';
 
 const App = () => {
   return (

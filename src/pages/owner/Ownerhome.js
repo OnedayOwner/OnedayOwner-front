@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
-import { popupState, completedPopupsState } from './../../atoms';
-import './Ownerhome.css'; 
+import { popupState, completedPopupsState } from '../../atoms';
+import '../../styles/owner/Ownerhome.css';
 
 const Ownerhome = () => {
   const [activeTab, setActiveTab] = useState('ongoing');

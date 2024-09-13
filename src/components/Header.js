@@ -2,7 +2,7 @@ import { faAngleLeft, faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Header.css";
+import "../styles/Header.css";
 import MyButton from "./MyButton";
 
 const Header = ({ headText }) => {

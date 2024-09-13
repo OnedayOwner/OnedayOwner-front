@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from './axios.js'; // Custom Axios instance
-import './SMSVerification.css';
+import '../../styles/login/SMSVerification.css';
 import MyButton from '../../components/MyButton.js'; 
 
 const SMSVerification = () => {

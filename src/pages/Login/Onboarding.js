@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import onboarding from '../../assets/images/onboarding.png';
-import './Onboarding.css';
+import '../../styles/login/Onboarding.css';
 import MyButton from '../../components/MyButton';
 
 const Onboarding = () => {
