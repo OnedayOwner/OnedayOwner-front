@@ -1,4 +1,4 @@
-const Feedback = () => {
+const OwnerFeedback = () => {
     return (
         <div>
             <h1>피드백 페이지</h1>
@@ -6,4 +6,4 @@ const Feedback = () => {
     )
 }
 
-export default Feedback;
+export default OwnerFeedback;

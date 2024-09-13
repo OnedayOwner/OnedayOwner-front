@@ -1,4 +1,4 @@
-const ReservationStatus = () => {
+const OwnerReservationStatus = () => {
     return (
         <div>
             <h1>예약현황 페이지</h1>
@@ -6,4 +6,4 @@ const ReservationStatus = () => {
     )
 }
 
-export default ReservationStatus;
+export default OwnerReservationStatus;

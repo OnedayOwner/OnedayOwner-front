@@ -14,10 +14,10 @@ const Ownerhome = () => {
 
   const handleTabChange = (tab) => setActiveTab(tab);
 
-  const handleFeedbackClick = () => navigate('/feedback');
-  const handleReservationStatusClick = () => navigate('/reservationStatus');
-  const handleRegisterClick = () => navigate('/registration');
-  const handleEditClick = () => navigate('/registration', { state: { popup } });
+  const handleFeedbackClick = () => navigate('/owner/feedback');
+  const handleReservationStatusClick = () => navigate('/owner/reservationStatus');
+  const handleRegisterClick = () => navigate('/owner/registration');
+  const handleEditClick = () => navigate('/owner/registration', { state: { popup } });
 
   useEffect(() => {
     const fetchPopups = async () => {

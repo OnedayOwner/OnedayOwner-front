@@ -5,5 +5,4 @@ const Customerhome = () => {
         </div>
     )
 }
-
 export default Customerhome;

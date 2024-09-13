@@ -18,9 +18,15 @@ body {
   background-color: white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
-  overflow: hidden;
   min-height: 100vh;
   position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex-grow: 1; 
+  padding-bottom: 7vh; 
 }
 
 input {

@@ -1,15 +1,29 @@
 import React from 'react';
 import MyHeader from './Header';
+import FooterCustomer from './FooterCustomer'; 
+import FooterOwner from './FooterOwner'; 
 
-const Layout = ({ children }) => {
+const Layout = ({ children, headText, footerType, showHeader = true }) => { 
+  const renderFooter = () => {
+    if (footerType === "customer") {
+      return <FooterCustomer />;
+    } else if (footerType === "owner") {
+      return <FooterOwner />;
+    }
+    return null;
+  };
+
   return (
     <>
-      <MyHeader 
-        headText={"오늘만 사장"}
-        notice={<i className="fas fa-bell"></i>}
-        Myinformation={<i className="fas fa-user"></i>}
-      />
-      <div>{children}</div>
+      {showHeader && (
+        <MyHeader 
+          headText={headText}
+          notice={<i className="fas fa-bell"></i>}
+          Myinformation={<i className="fas fa-user"></i>}
+        />
+      )}
+      <div className='content'>{children}</div>
+      {renderFooter()}
     </>
   );
 };

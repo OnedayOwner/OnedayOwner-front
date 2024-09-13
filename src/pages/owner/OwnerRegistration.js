@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../styles/owner/Registration.css';
 
-const Registration = () => {
+const OwnerRegistration = () => {
     const navigate = useNavigate();
     const [roadAddress, setRoadAddress] = useState('');
     const [zipcode, setZipcode] = useState('');
@@ -184,7 +184,6 @@ const Registration = () => {
 
     return (
         <div className="registration-container">
-            <h1>팝업 등록</h1>
             <div style={{ marginBottom: '20px', position: 'relative' }}>
                 <input
                     type="text"
@@ -315,4 +314,4 @@ const Registration = () => {
     );
 }
 
-export default Registration;
+export default OwnerRegistration;
