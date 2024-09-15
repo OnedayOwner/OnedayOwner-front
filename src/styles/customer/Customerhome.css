@@ -6,7 +6,7 @@
 .customer-home-header {
     text-align: left;
     align-self: flex-start;
-    margin-left: 30px;
+    margin-left: 25px;
 }
 
 .customer-home-header__title {
@@ -21,7 +21,7 @@
     margin-bottom: 20px;
 }
 
-.banner-slide {
+.customer-home-banner-slide {
     background-color: #f5f5f5;
     color: black;
     border-radius: 12px;
@@ -34,31 +34,31 @@
     position: relative;
 }
 
-.inner-swiper {
+.customer-home-inner-swiper {
     width: 100%;
     height: 100%;
 }
 
-.slide-content {
+.customer-home-slide-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
     height: 100%;
 }
 
-.slide-content h2 {
+.customer-home-slide-content h2 {
     font-size: 20px;
     font-weight: 100;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.slide-content p {
+.customer-home-slide-content p {
     font-size: 16px;
     margin-bottom: 10px;
 }
 
-.page-indicator {
+.customer-home-page-indicator {
     position: absolute;
     bottom: 10px;
     right: 20px;
@@ -69,20 +69,20 @@
     border-radius: 8px;
 }
 
-.category-buttons {
+.customer-home-category-buttons {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
     margin: 10px;
 }
 
-.category-button {
+.customer-home-category-button {
     background-color: #f5f5f5;
     color: black;
     border: none;
     padding: 10px 22px;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 13px;
     display: flex;
     flex-direction: column; 
     align-items: center;
@@ -92,10 +92,57 @@
     transition: background-color 0.3s ease;
 }
 
-.category-button svg {
+.customer-home-category-button svg {
     font-size: 30px;
+    color: #00796b;
 }
 
-.category-button:active {
+.customer-home-category-button:active {
     background-color: #ccc;
+}
+
+.customer-home-ongoing-popup-section {
+    margin-top: 25px;
+}
+
+.customer-home-ongoing-popup-title {
+    font-size: 24px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    font-weight: 100;
+    color: #004d40;
+}
+
+.customer-home-popup-slide {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.customer-home-popup-image {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    object-fit: cover;
+    margin-bottom: 3px;
+}
+
+.customer-home-popup-info {
+    text-align: left;
+    margin-left: 5px;
+}
+
+.customer-home-popup-name {
+    font-size: 17px;
+    margin:7px;
+}
+
+.customer-home-popup-duration,
+.customer-home-popup-location {
+    font-size: 14px;
+    color: #555;
+    margin:5px;
 }
