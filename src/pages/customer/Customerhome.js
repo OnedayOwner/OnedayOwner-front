@@ -3,12 +3,15 @@ import '../../styles/customer/Customerhome.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { FaPizzaSlice } from 'react-icons/fa';
+import { GiNoodles, GiChopsticks, GiSushis } from 'react-icons/gi';
+import { BsThreeDots } from 'react-icons/bs';
 
 const Customerhome = () => {
     const [currentPage, setCurrentPage] = useState(1);
 
     const handleSlideChange = (swiper) => {
-        setCurrentPage(swiper.activeIndex + 1); // Swiper의 인덱스는 0부터 시작하므로 +1
+        setCurrentPage(swiper.activeIndex + 1); 
     };
 
     return (
@@ -49,6 +52,23 @@ const Customerhome = () => {
             {currentPage} / 3
           </div>
         </div>
+      </div>
+      <div className="category-buttons">
+        <button className="category-button">
+          <GiChopsticks /> 한식
+        </button>
+        <button className="category-button">
+          <GiNoodles /> 중식
+        </button>
+        <button className="category-button">
+          <GiSushis /> 일식
+        </button>
+        <button className="category-button">
+          <FaPizzaSlice /> 양식
+        </button>
+        <button className="category-button">
+          <BsThreeDots /> 기타
+        </button>
       </div>
     </div>
     )
