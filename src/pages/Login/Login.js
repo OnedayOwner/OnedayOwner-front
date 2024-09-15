@@ -36,7 +36,7 @@ const Login = () => {
             localStorage.setItem('token', response.headers.authorization);
             alert('로그인 성공');
             if (type === 'CUSTOMER') {
-                navigate('/custome/home');
+                navigate('/customer/home');
             } else if (type === 'OWNER') {
                 navigate('/owner/home');
             }
