@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 import '../../styles/customer/Customerhome.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -6,12 +7,40 @@ import 'swiper/css/pagination';
 import { FaPizzaSlice } from 'react-icons/fa';
 import { GiNoodles, GiChopsticks, GiSushis } from 'react-icons/gi';
 import { BsThreeDots } from 'react-icons/bs';
+import axiosInstance from '../login/axios';
 
 const Customerhome = () => {
     const [currentPage, setCurrentPage] = useState(1);
+    const [activePopups, setActivePopups] = useState([]);
+    const [futurePopups, setFuturePopups] = useState([]);
+    const navigate = useNavigate(); // Initialize useNavigate
+
+    useEffect(() => {
+        axiosInstance.get('/customers/popups/active')
+        .then(response => setActivePopups(response.data))
+        .catch(error => console.error('Error fetching active popups:', error));
+
+        axiosInstance.get('/customers/popups/future')
+        .then(response => setFuturePopups(response.data))
+        .catch(error => console.error('Error fetching future popups:', error));
+    }, []);
 
     const handleSlideChange = (swiper) => {
         setCurrentPage(swiper.activeIndex + 1); 
+    };
+
+    const getShortenedAddress = (street) => {
+        const words = street.split(' ');
+        return words.slice(0, 2).join(' ');
+    };
+
+    const formatDate = (dateString) => {
+        const options = { month: '2-digit', day: '2-digit' };
+        return new Date(dateString).toLocaleDateString('ko-KR', options).replace(/\. /g, '.');
+    };
+
+    const handlePopupClick = (popupId) => {
+        navigate(`/customer/popup/${popupId}`); // Navigate to the popup detail page
     };
 
     return (
@@ -37,8 +66,8 @@ const Customerhome = () => {
             </SwiperSlide>
             <SwiperSlide>
               <div className="customer-home-slide-content">
-                <h2>두 번째 배너</h2>
-                <p>이곳에 두 번째 배너의 정보를 넣으세요.</p>
+                <h2>예약을 통해 매장을 이용하고</h2>
+                <p>여러분의 이용 경험을 피드백해주세요.</p>
               </div>
             </SwiperSlide>
             <SwiperSlide>
@@ -79,36 +108,25 @@ const Customerhome = () => {
           slidesPerView={2.5}
           className="customer-home-popup-swiper"
         >
-          <SwiperSlide>
-            <div className="customer-home-popup-slide">
-              <img src="https://via.placeholder.com/150" alt="Popup 1" className="customer-home-popup-image" />
-              <div className="customer-home-popup-info">
-                <h3 className="customer-home-popup-name">홍콩반점</h3>
-                <p className="customer-home-popup-duration">01.20 ~ 01.31</p>
-                <p className="customer-home-popup-location">서울시 강남구</p>
+          {activePopups.map(popup => (
+            <SwiperSlide key={popup.id}>
+              <div 
+                className="customer-home-popup-slide" 
+                onClick={() => handlePopupClick(popup.id)} // Attach click handler
+              >
+                <img src={popup.menuImageUrl || "https://via.placeholder.com/150"} alt={popup.name} className="customer-home-popup-image" />
+                <div className="customer-home-popup-info">
+                  <h3 className="customer-home-popup-name">{popup.name}</h3>
+                  <p className="customer-home-popup-duration">
+                    {formatDate(popup.startDateTime)} ~ {formatDate(popup.endDateTime)}
+                  </p>
+                  <p className="customer-home-popup-location">
+                    {getShortenedAddress(popup.address.street)}
+                  </p>
+                </div>
               </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="customer-home-popup-slide">
-              <img src="https://via.placeholder.com/150" alt="Popup 2" className="customer-home-popup-image" />
-              <div className="customer-home-popup-info">
-                <h3 className="customer-home-popup-name">스타벅스</h3>
-                <p className="customer-home-popup-duration">02.05 ~ 02.28</p>
-                <p className="customer-home-popup-location">서울시 종로구</p>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="customer-home-popup-slide">
-              <img src="https://via.placeholder.com/150" alt="Popup 2" className="customer-home-popup-image" />
-              <div className="customer-home-popup-info">
-                <h3 className="customer-home-popup-name">파리바게트</h3>
-                <p className="customer-home-popup-duration">02.10 ~ 02.28</p>
-                <p className="customer-home-popup-location">서울시 종로구</p>
-              </div>
-            </div>
-          </SwiperSlide>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
 
@@ -119,39 +137,29 @@ const Customerhome = () => {
           slidesPerView={2.5}
           className="customer-home-popup-swiper"
         >
-          <SwiperSlide>
-            <div className="customer-home-popup-slide">
-              <img src="https://via.placeholder.com/150" alt="Popup 1" className="customer-home-popup-image" />
-              <div className="customer-home-popup-info">
-                <h3 className="customer-home-popup-name">홍콩반점</h3>
-                <p className="customer-home-popup-duration">01.20 ~ 01.31</p>
-                <p className="customer-home-popup-location">서울시 강남구</p>
+          {futurePopups.map(popup => (
+            <SwiperSlide key={popup.id}>
+              <div 
+                className="customer-home-popup-slide" 
+                onClick={() => handlePopupClick(popup.id)}
+              >
+                <img src={popup.menuImageUrl || "https://via.placeholder.com/150"} alt={popup.name} className="customer-home-popup-image" />
+                <div className="customer-home-popup-info">
+                  <h3 className="customer-home-popup-name">{popup.name}</h3>
+                  <p className="customer-home-popup-duration">
+                    {formatDate(popup.startDateTime)} ~ {formatDate(popup.endDateTime)}
+                  </p>
+                  <p className="customer-home-popup-location">
+                    {getShortenedAddress(popup.address.street)}
+                  </p>
+                </div>
               </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="customer-home-popup-slide">
-              <img src="https://via.placeholder.com/150" alt="Popup 2" className="customer-home-popup-image" />
-              <div className="customer-home-popup-info">
-                <h3 className="customer-home-popup-name">스타벅스</h3>
-                <p className="customer-home-popup-duration">02.05 ~ 02.28</p>
-                <p className="customer-home-popup-location">서울시 종로구</p>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="customer-home-popup-slide">
-              <img src="https://via.placeholder.com/150" alt="Popup 2" className="customer-home-popup-image" />
-              <div className="customer-home-popup-info">
-                <h3 className="customer-home-popup-name">파리바게트</h3>
-                <p className="customer-home-popup-duration">02.10 ~ 02.28</p>
-                <p className="customer-home-popup-location">서울시 종로구</p>
-              </div>
-            </div>
-          </SwiperSlide>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
     </div>
     )
 }
+
 export default Customerhome;

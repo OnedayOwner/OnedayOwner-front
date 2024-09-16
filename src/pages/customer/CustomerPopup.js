@@ -47,7 +47,7 @@ const CustomerPopup = () => {
                     <img src="https://via.placeholder.com/100" alt="Menu 1" className="customer-popup-menu-image" />
                     <div className="customer-popup-menu-info">
                         <h3 className="customer-popup-menu-name">메뉴 이름 1</h3>
-                        <p className="customer-popup-menu-description">이 메뉴는 특별한 맛을 제공합니다...</p>
+                        <p className="customer-popup-menu-description">이 메뉴는 특별한 맛을 제공합니다.</p>
                         <p className="customer-popup-menu-price">₩10,000</p>
                     </div>
                 </div>
@@ -55,7 +55,7 @@ const CustomerPopup = () => {
                     <img src="https://via.placeholder.com/100" alt="Menu 2" className="customer-popup-menu-image" />
                     <div className="customer-popup-menu-info">
                         <h3 className="customer-popup-menu-name">메뉴 이름 2</h3>
-                        <p className="customer-popup-menu-description">이 메뉴는 특별한 맛을 제공합니다...</p>
+                        <p className="customer-popup-menu-description">이 메뉴는 특별한 맛을 제공합니다.</p>
                         <p className="customer-popup-menu-price">₩15,000</p>
                     </div>
                 </div>

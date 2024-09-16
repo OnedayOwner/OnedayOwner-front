@@ -147,3 +147,7 @@
     color: #555;
     margin:5px;
 }
+
+.customer-home-popup-slide:active {
+    background-color: #f5f5f5;
+}
