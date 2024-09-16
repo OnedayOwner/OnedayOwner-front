@@ -15,6 +15,7 @@ import OwnerProfile from './pages/owner/OwnerProfile';
 import CustomerSearch from './pages/customer/CustomerSearch';
 import CustomerReservation from './pages/customer/CustomerReservation';
 import CustomerProfile from './pages/customer/CustomerProfile';
+import CustomerPopup from './pages/customer/CustomerPopup';
 
 const App = () => {
   return (
@@ -36,6 +37,7 @@ const App = () => {
             <Route path="/customer/search" element={<Layout showHeader={false} footerType="customer"><CustomerSearch /></Layout>} />
             <Route path="/customer/reservation" element={<Layout showHeader={false} footerType="customer"><CustomerReservation /></Layout>} />
             <Route path="/customer/profile" element={<Layout showHeader={false} footerType="customer"><CustomerProfile /></Layout>} />
+            <Route path="/customer/popup" element={<Layout headText="팝업 상세" footerType="customer"><CustomerPopup /></Layout>} />
           </Routes>
         </div>
       </BrowserRouter>

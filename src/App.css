@@ -25,9 +25,7 @@ body {
 }
 
 .content {
-  padding-top: 7vh;
   flex-grow: 1; 
-  padding-bottom: 7vh; 
 }
 
 input {

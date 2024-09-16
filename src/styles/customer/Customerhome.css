@@ -1,12 +1,12 @@
 .customer-home-container {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 20px;
 }
 
 .customer-home-header {
     text-align: left;
     align-self: flex-start;
     margin-left: 25px;
+    margin-top: 4vh;
 }
 
 .customer-home-header__title {
@@ -128,6 +128,7 @@
     border-radius: 15px;
     object-fit: cover;
     margin-bottom: 3px;
+    border: 1px solid #ccc;
 }
 
 .customer-home-popup-info {
