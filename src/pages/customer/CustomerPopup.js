@@ -1,18 +1,31 @@
-import React from 'react';
-import '../../styles/customer/CustomerPopup.css';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { FaMapMarkerAlt, FaCalendarAlt, FaInfoCircle, FaClock } from 'react-icons/fa';
 import MyButton from '../../components/MyButton';
 import axiosInstance from '../login/axios';
-import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import '../../styles/customer/CustomerPopup.css';
 
 const CustomerPopup = () => {
     const { popupId } = useParams();
     const [popupData, setPopupData] = useState(null);
+    const [coordinates, setCoordinates] = useState({ lat: 37.5665, lng: 126.9780 }); // 기본값으로 서울 시청 위치를 설정
 
     useEffect(() => {
         axiosInstance.get(`/customers/popup/${popupId}`)
-            .then(response => setPopupData(response.data))
+            .then(response => {
+                setPopupData(response.data);
+                const geocoder = new window.kakao.maps.services.Geocoder();
+                geocoder.addressSearch(response.data.address.street, (result, status) => {
+                    if (status === window.kakao.maps.services.Status.OK) {
+                        const lat = parseFloat(result[0].y);
+                        const lng = parseFloat(result[0].x);
+                        setCoordinates({ lat, lng });
+                    } else {
+                        console.error('Geocode was not successful for the following reason:', status);
+                    }
+                });
+            })
             .catch(error => console.error('Error fetching popup data:', error));
     }, [popupId]);
 
@@ -22,9 +35,7 @@ const CustomerPopup = () => {
 
     const { name, address, description, menus, startDateTime, endDateTime, businessTimes } = popupData;
 
-    const formatTime = (time) => {
-        return time.substring(0, 5);
-    };
+    const formatTime = (time) => time.substring(0, 5);
 
     return (
         <div className="customer-popup-container">
@@ -68,7 +79,15 @@ const CustomerPopup = () => {
 
             <div className="customer-popup-map">
                 <h2>위치</h2>
-                <div id="map" className="customer-popup-map-container"></div>
+                <div className="customer-popup-map-container">
+                    <Map
+                        center={coordinates}
+                        style={{ width: '100%', height: '100%' }}
+                    >
+                        <MapMarker position={coordinates}>
+                        </MapMarker>
+                    </Map>
+                </div>
             </div>
 
             <div className="customer-popup-menu">
