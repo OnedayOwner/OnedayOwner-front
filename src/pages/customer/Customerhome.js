@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
+import { useNavigate } from 'react-router-dom';
 import '../../styles/customer/Customerhome.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -13,7 +13,7 @@ const Customerhome = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [activePopups, setActivePopups] = useState([]);
     const [futurePopups, setFuturePopups] = useState([]);
-    const navigate = useNavigate(); // Initialize useNavigate
+    const navigate = useNavigate();
 
     useEffect(() => {
         axiosInstance.get('/customers/popups/active')
@@ -40,7 +40,7 @@ const Customerhome = () => {
     };
 
     const handlePopupClick = (popupId) => {
-        navigate(`/customer/popup/${popupId}`); // Navigate to the popup detail page
+        navigate(`/customer/popup/${popupId}`);
     };
 
     return (
@@ -103,60 +103,72 @@ const Customerhome = () => {
 
       <div className="customer-home-ongoing-popup-section">
         <h2 className="customer-home-ongoing-popup-title">진행중인 팝업</h2>
-        <Swiper
-          spaceBetween={10}
-          slidesPerView={2.5}
-          className="customer-home-popup-swiper"
-        >
-          {activePopups.map(popup => (
-            <SwiperSlide key={popup.id}>
-              <div 
-                className="customer-home-popup-slide" 
-                onClick={() => handlePopupClick(popup.id)} // Attach click handler
-              >
-                <img src={popup.menuImageUrl || "https://via.placeholder.com/150"} alt={popup.name} className="customer-home-popup-image" />
-                <div className="customer-home-popup-info">
-                  <h3 className="customer-home-popup-name">{popup.name}</h3>
-                  <p className="customer-home-popup-duration">
-                    {formatDate(popup.startDateTime)} ~ {formatDate(popup.endDateTime)}
-                  </p>
-                  <p className="customer-home-popup-location">
-                    {getShortenedAddress(popup.address.street)}
-                  </p>
+        {activePopups.length > 0 ? (
+          <Swiper
+            spaceBetween={10}
+            slidesPerView={2.5}
+            className="customer-home-popup-swiper"
+          >
+            {activePopups.map(popup => (
+              <SwiperSlide key={popup.id}>
+                <div 
+                  className="customer-home-popup-slide" 
+                  onClick={() => handlePopupClick(popup.id)}
+                >
+                  <img src={popup.menuImageUrl || "https://via.placeholder.com/150"} alt={popup.name} className="customer-home-popup-image" />
+                  <div className="customer-home-popup-info">
+                    <h3 className="customer-home-popup-name">{popup.name}</h3>
+                    <p className="customer-home-popup-duration">
+                      {formatDate(popup.startDateTime)} ~ {formatDate(popup.endDateTime)}
+                    </p>
+                    <p className="customer-home-popup-location">
+                      {getShortenedAddress(popup.address.street)}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : (
+            <div className="customer-home-no-popups">
+            <p>진행중인 팝업이 없습니다.</p>
+          </div>
+        )}
       </div>
 
       <div className="customer-home-ongoing-popup-section">
         <h2 className="customer-home-ongoing-popup-title">진행 예정 팝업</h2>
-        <Swiper
-          spaceBetween={10}
-          slidesPerView={2.5}
-          className="customer-home-popup-swiper"
-        >
-          {futurePopups.map(popup => (
-            <SwiperSlide key={popup.id}>
-              <div 
-                className="customer-home-popup-slide" 
-                onClick={() => handlePopupClick(popup.id)}
-              >
-                <img src={popup.menuImageUrl || "https://via.placeholder.com/150"} alt={popup.name} className="customer-home-popup-image" />
-                <div className="customer-home-popup-info">
-                  <h3 className="customer-home-popup-name">{popup.name}</h3>
-                  <p className="customer-home-popup-duration">
-                    {formatDate(popup.startDateTime)} ~ {formatDate(popup.endDateTime)}
-                  </p>
-                  <p className="customer-home-popup-location">
-                    {getShortenedAddress(popup.address.street)}
-                  </p>
+        {futurePopups.length > 0 ? (
+          <Swiper
+            spaceBetween={10}
+            slidesPerView={2.5}
+            className="customer-home-popup-swiper"
+          >
+            {futurePopups.map(popup => (
+              <SwiperSlide key={popup.id}>
+                <div 
+                  className="customer-home-popup-slide" 
+                  onClick={() => handlePopupClick(popup.id)}
+                >
+                  <img src={popup.menuImageUrl || "https://via.placeholder.com/150"} alt={popup.name} className="customer-home-popup-image" />
+                  <div className="customer-home-popup-info">
+                    <h3 className="customer-home-popup-name">{popup.name}</h3>
+                    <p className="customer-home-popup-duration">
+                      {formatDate(popup.startDateTime)} ~ {formatDate(popup.endDateTime)}
+                    </p>
+                    <p className="customer-home-popup-location">
+                      {getShortenedAddress(popup.address.street)}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : (
+            <div className="customer-home-no-popups">
+            <p>진행 예정인 팝업이 없습니다.</p>
+          </div>
+        )}
       </div>
     </div>
     )
