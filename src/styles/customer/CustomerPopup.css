@@ -61,16 +61,18 @@
 
 .customer-popup-menu {
     margin-bottom: 20px;
+    width: 100%;
 }
 
 .customer-popup-menu-item {
+    position: relative;
     display: flex;
     margin-bottom: 15px;
 }
 
 .customer-popup-menu-image {
     width: 30%;
-    height: auto;
+    height: 30%;
     border-radius: 8px;
     object-fit: cover;
     border: 1px solid #ccc;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { FaMapMarkerAlt, FaCalendarAlt, FaInfoCircle, FaClock } from 'react-icons/fa';
 import MyButton from '../../components/MyButton';
@@ -10,6 +11,7 @@ const CustomerPopup = () => {
     const { popupId } = useParams();
     const [popupData, setPopupData] = useState(null);
     const [coordinates, setCoordinates] = useState({ lat: 37.5665, lng: 126.9780 }); // 기본값으로 서울 시청 위치를 설정
+    const navigate = useNavigate();
 
     useEffect(() => {
         axiosInstance.get(`/customers/popup/${popupId}`)
@@ -30,18 +32,26 @@ const CustomerPopup = () => {
     }, [popupId]);
 
     if (!popupData) {
-        return <div>Loading...</div>;
+        return (
+            <div className="loading-container">
+                <div className="loading-spinner"></div>
+            </div>
+        );
     }
 
     const { name, address, description, menus, startDateTime, endDateTime, businessTimes } = popupData;
 
     const formatTime = (time) => time.substring(0, 5);
 
+    const handleReservationClick = (popupId) => {
+        navigate(`/customer/reservation/${popupId}`);
+    };
+
     return (
         <div className="customer-popup-container">
             <div className="customer-popup-images">
-                <img src={popupData.imageUrl1 || "https://via.placeholder.com/200"} alt="Popup Image 1" className="customer-popup-image" />
-                <img src={popupData.imageUrl2 || "https://via.placeholder.com/200"} alt="Popup Image 2" className="customer-popup-image" />
+                <img src={menus[0]?.imageUrl || "https://via.placeholder.com/200"} alt="Popup Image 1" className="customer-popup-image" />
+                <img src={menus[1]?.imageUrl || "https://via.placeholder.com/200"} alt="Popup Image 2" className="customer-popup-image" />
             </div>
 
             <h1 className="customer-popup-restaurant-name">{name}</h1>
@@ -74,7 +84,7 @@ const CustomerPopup = () => {
             </div>
 
             <div className="customer-popup-reservation-button">
-                <MyButton text="예약하기" type="alt" />
+                <MyButton text="예약하기" type="default" onClick={() => handleReservationClick(popupId)}/>
             </div>
 
             <div className="customer-popup-map">

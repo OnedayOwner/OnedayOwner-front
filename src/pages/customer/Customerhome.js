@@ -67,13 +67,13 @@ const Customerhome = () => {
             <SwiperSlide>
               <div className="customer-home-slide-content">
                 <h2>예약을 통해 매장을 이용하고</h2>
-                <p>여러분의 이용 경험을 피드백해주세요.</p>
+                <p>여러분의 이용 경험을 피드백해주세요</p>
               </div>
             </SwiperSlide>
             <SwiperSlide>
               <div className="customer-home-slide-content">
                 <h2>세 번째 배너</h2>
-                <p>이곳에 세 번째 배너의 정보를 넣으세요.</p>
+                <p>이곳에 세 번째 배너의 정보를 넣으세요</p>
               </div>
             </SwiperSlide>
           </Swiper>
