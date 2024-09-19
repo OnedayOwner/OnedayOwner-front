@@ -22,11 +22,10 @@ const CustomerMyReservation = () => {
         }
     };
 
-    // 방문 완료 예약 불러오기
     const fetchCompletedReservations = async () => {
         try {
             setLoading(true);
-            const response = await instance.get('/customers/reservations/completed'); // instance를 사용
+            const response = await instance.get('/customers/reservations/completed'); 
             setCompletedReservations(response.data);
         } catch (err) {
             console.error('Error fetching completed reservations:', err);
@@ -36,7 +35,6 @@ const CustomerMyReservation = () => {
         }
     };
 
-    // 컴포넌트 마운트 시 데이터 가져오기
     useEffect(() => {
         if (activeTab === 'upcoming') {
             fetchUpcomingReservations();
@@ -45,7 +43,6 @@ const CustomerMyReservation = () => {
         }
     }, [activeTab]);
 
-    // 예약 리스트 아이템 렌더링 함수
     const renderReservationItem = (reservation) => (
         <div key={reservation.id} className="reservation-item">
             <img
