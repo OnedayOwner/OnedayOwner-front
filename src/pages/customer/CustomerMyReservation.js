@@ -1,53 +1,73 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import instance from '../login/axios'; 
 import '../../styles/customer/CustomerMyReservation.css';
 
 const CustomerMyReservation = () => {
-    // 더미 데이터 설정
-    const dummyUpcomingReservations = [
-        {
-            id: 1,
-            imageUrl: 'https://via.placeholder.com/100',
-            name: '스타벅스 강남점',
-            address: '서울특별시 강남구 테헤란로 123',
-            date: '2024-09-25',
-            time: '14:00',
-            people: 2,
-        },
-        {
-            id: 2,
-            imageUrl: 'https://via.placeholder.com/100',
-            name: '투썸플레이스 서초점',
-            address: '서울특별시 서초구 서초대로 45',
-            date: '2024-09-30',
-            time: '10:00',
-            people: 3,
-        },
-    ];
-
-    const dummyCompletedReservations = [
-        {
-            id: 3,
-            imageUrl: 'https://via.placeholder.com/100',
-            name: '엔제리너스 종로점',
-            address: '서울특별시 종로구 종로 99',
-            date: '2024-09-20',
-            time: '12:00',
-            people: 1,
-        },
-        {
-            id: 4,
-            imageUrl: 'https://via.placeholder.com/100',
-            name: '이디야커피 홍대점',
-            address: '서울특별시 마포구 홍익로 20',
-            date: '2024-09-18',
-            time: '16:00',
-            people: 4,
-        },
-    ];
-
-    const [upcomingReservations, setUpcomingReservations] = useState(dummyUpcomingReservations);
-    const [completedReservations, setCompletedReservations] = useState(dummyCompletedReservations);
+    const [upcomingReservations, setUpcomingReservations] = useState([]);
+    const [completedReservations, setCompletedReservations] = useState([]);
     const [activeTab, setActiveTab] = useState('upcoming'); // 'upcoming' or 'completed'
+    const [loading, setLoading] = useState(false); 
+    const [error, setError] = useState(null); 
+
+    const fetchUpcomingReservations = async () => {
+        try {
+            setLoading(true);
+            const response = await instance.get('/customers/reservations/upcoming'); 
+            setUpcomingReservations(response.data);
+        } catch (err) {
+            console.error('Error fetching upcoming reservations:', err);
+            setError('방문 예정 예약을 불러오는 중 오류가 발생했습니다.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // 방문 완료 예약 불러오기
+    const fetchCompletedReservations = async () => {
+        try {
+            setLoading(true);
+            const response = await instance.get('/customers/reservations/completed'); // instance를 사용
+            setCompletedReservations(response.data);
+        } catch (err) {
+            console.error('Error fetching completed reservations:', err);
+            setError('방문 완료 예약을 불러오는 중 오류가 발생했습니다.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // 컴포넌트 마운트 시 데이터 가져오기
+    useEffect(() => {
+        if (activeTab === 'upcoming') {
+            fetchUpcomingReservations();
+        } else {
+            fetchCompletedReservations();
+        }
+    }, [activeTab]);
+
+    // 예약 리스트 아이템 렌더링 함수
+    const renderReservationItem = (reservation) => (
+        <div key={reservation.id} className="reservation-item">
+            <img
+                src={reservation.menuImageUrl || 'https://via.placeholder.com/100'}
+                alt="restaurant"
+                className="reservation-item__image"
+            />
+            <div className="reservation-item__details">
+                <h2 className="reservation-item__name">{reservation.popupName}</h2>
+                <p className="reservation-item__address">
+                    {reservation.address.street}, {reservation.address.detail}
+                </p>
+                <p className="reservation-item__datetime">
+                    {new Date(reservation.reservationDateTime).toLocaleDateString()}{' '}
+                    {new Date(reservation.reservationDateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </p>
+                <p className="reservation-item__people">
+                    예약 인원: {reservation.numberOfPeople}명
+                </p>
+            </div>
+        </div>
+    );
 
     return (
         <div className="customer-myreservation-container">
@@ -69,60 +89,24 @@ const CustomerMyReservation = () => {
                 </div>
             </div>
 
-            {/* 방문 예정 예약 내역 */}
-            {activeTab === 'upcoming' && (
+            {loading ? (
+                <div className="loading-spinner"></div>
+            ) : error ? (
+                <p className="customer-myreservation-error">{error}</p>
+            ) : activeTab === 'upcoming' ? (
                 <div className="customer-myreservation-list">
                     {upcomingReservations.length === 0 ? (
                         <p className="customer-myreservation-empty">방문 예정인 팝업이 없습니다.</p>
                     ) : (
-                        upcomingReservations.map((reservation) => (
-                            <div key={reservation.id} className="reservation-item">
-                                <img
-                                    src={reservation.imageUrl}
-                                    alt="restaurant"
-                                    className="reservation-item__image"
-                                />
-                                <div className="reservation-item__details">
-                                    <h2 className="reservation-item__name">{reservation.name}</h2>
-                                    <p className="reservation-item__address">{reservation.address}</p>
-                                    <p className="reservation-item__datetime">
-                                        {reservation.date} {reservation.time}
-                                    </p>
-                                    <p className="reservation-item__people">
-                                        예약 인원: {reservation.people}명
-                                    </p>
-                                </div>
-                            </div>
-                        ))
+                        upcomingReservations.map(renderReservationItem)
                     )}
                 </div>
-            )}
-
-            {/* 방문 완료 예약 내역 */}
-            {activeTab === 'completed' && (
+            ) : (
                 <div className="customer-myreservation-list">
                     {completedReservations.length === 0 ? (
                         <p className="customer-myreservation-empty">방문 완료한 팝업이 없습니다.</p>
                     ) : (
-                        completedReservations.map((reservation) => (
-                            <div key={reservation.id} className="reservation-item">
-                                <img
-                                    src={reservation.imageUrl}
-                                    alt="restaurant"
-                                    className="reservation-item__image"
-                                />
-                                <div className="reservation-item__details">
-                                    <h2 className="reservation-item__name">{reservation.name}</h2>
-                                    <p className="reservation-item__address">{reservation.address}</p>
-                                    <p className="reservation-item__datetime">
-                                        {reservation.date} {reservation.time}
-                                    </p>
-                                    <p className="reservation-item__people">
-                                        예약 인원: {reservation.people}명
-                                    </p>
-                                </div>
-                            </div>
-                        ))
+                        completedReservations.map(renderReservationItem)
                     )}
                 </div>
             )}
