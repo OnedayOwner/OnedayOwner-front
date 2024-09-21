@@ -62,7 +62,7 @@ const CustomerReservation = () => {
 
             <div className="customer-reservation-section-people">
                 <div className="customer-reservation-label-container">
-                    <FaUserFriends size={22} className="customer-reservation-icon" />
+                    <FaUserFriends size={20} className="customer-reservation-icon" />
                     <div className="customer-reservation-label">인원을 선택해주세요</div>
                 </div>
                 <div className="customer-reservation-people-selector">
@@ -76,7 +76,7 @@ const CustomerReservation = () => {
 
             <div className="customer-reservation-section">
                 <div className="customer-reservation-label-container">
-                    <FaCalendarAlt size={22} className="customer-reservation-icon" />
+                    <FaCalendarAlt size={20} className="customer-reservation-icon" />
                     <div className="customer-reservation-label">날짜 및 시간을 선택해주세요</div>
                 </div>
             </div>
