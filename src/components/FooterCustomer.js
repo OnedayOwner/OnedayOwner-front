@@ -19,7 +19,7 @@ const FooterCustomer = () => {
                 <FontAwesomeIcon icon={faSearch} className="footer-icon" />
                 <span className="footer-text">검색</span>
             </Link>
-            <Link to="/customer/reservation" className={`footer-item ${isActive("/customer/reservation") ? "active" : ""}`}>
+            <Link to="/customer/myreservation" className={`footer-item ${isActive("/customer/myreservation") ? "active" : ""}`}>
                 <FontAwesomeIcon icon={faCalendarCheck} className="footer-icon" />
                 <span className="footer-text">내 예약</span>
             </Link>
