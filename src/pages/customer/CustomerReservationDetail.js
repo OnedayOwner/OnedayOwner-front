@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaMapMarkerAlt, FaCalendarAlt, FaInfoCircle, FaUserFriends } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaCalendarAlt, FaUserFriends } from 'react-icons/fa';
 import MyButton from '../../components/MyButton';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -51,8 +51,8 @@ const CustomerReservationDetail = () => {
         return <p>예약 데이터를 불러오지 못했습니다.</p>;
     }
 
-    const { popupSummaryForReservation, reservationMenuDetails, reservationDateTime, numberOfPeople, totalPrice } = reservationData;
-    const { name, address, description } = popupSummaryForReservation;
+    const { popupSummaryForReservation, reservationMenuDetails, reservationDateTime, numberOfPeople, totalPrice, isCompleted } = reservationData;
+    const { name, address } = popupSummaryForReservation;
 
     const handlePopupClick = (popupId) => {
         navigate(`/customer/popup/${popupId}`);
@@ -80,9 +80,16 @@ const CustomerReservationDetail = () => {
                 </p>
             </div>
 
+            {isCompleted && (
+                <div className="customer-reservation-detail-reservation-button">
+                    <MyButton text="피드백 작성하기" type="default" onClick={() => handleFeedbackClick(popupSummaryForReservation.id)} />
+                </div>
+            )}
+
             <div className="customer-reservation-detail-reservation-button">
                 <MyButton text="피드백 작성하기" type="default" onClick={() => handleFeedbackClick(popupSummaryForReservation.id)} />
-            </div>
+            </div>  {/*피드백 완성 후에 지우기*/}
+
             <div className="customer-reservation-detail-reservation-button">
                 <MyButton text="팝업 페이지로 이동하기" type="alt" onClick={() => handlePopupClick(popupSummaryForReservation.id)} />
             </div>
