@@ -10,7 +10,7 @@ import '../../styles/customer/CustomerPopup.css';
 const CustomerPopup = () => {
     const { popupId } = useParams();
     const [popupData, setPopupData] = useState(null);
-    const [coordinates, setCoordinates] = useState({ lat: 37.5665, lng: 126.9780 }); // 기본값으로 서울 시청 위치를 설정
+    const [coordinates, setCoordinates] = useState({ lat: 37.5665, lng: 126.9780 });
     const navigate = useNavigate();
 
     useEffect(() => {
