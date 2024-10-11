@@ -67,14 +67,7 @@ const CustomerReservationDetail = () => {
             <h1 className="customer-reservation-detail-restaurant-name">{name}</h1>
 
             <div className="customer-reservation-detail-info">
-                <p className="customer-reservation-detail-info-item">
-                    <FaInfoCircle className="customer-reservation-detail-icon" />
-                    <span className="customer-reservation-detail-text">{description}</span>
-                </p>
-                <p className="customer-reservation-detail-info-item">
-                    <FaMapMarkerAlt className="customer-reservation-detail-icon" />
-                    <span className="customer-reservation-detail-text">{address.street}, {address.detail}</span>
-                </p>
+                
                 <p className="customer-reservation-detail-info-item">
                     <FaCalendarAlt className="customer-reservation-detail-icon" />
                     <span className="customer-reservation-detail-text">
@@ -101,6 +94,10 @@ const CustomerReservationDetail = () => {
                         <MapMarker position={coordinates} />
                     </Map>
                 </div>
+                <p className="customer-reservation-detail-map-item">
+                    <FaMapMarkerAlt className="customer-reservation-detail-icon" />
+                    <span className="customer-reservation-detail-text">{address.street}, {address.detail}</span>
+                </p>
             </div>
 
             <div className="customer-reservation-detail-menu">

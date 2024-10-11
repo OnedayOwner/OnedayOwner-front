@@ -19,6 +19,15 @@
     align-items: center;
     margin: 5px 0;
     color: #888; 
+    font-size: 18px;
+}
+
+.customer-reservation-detail-map-item {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+    color: #888; 
+    font-size: 16px;
 }
 
 .customer-reservation-detail-icon {
