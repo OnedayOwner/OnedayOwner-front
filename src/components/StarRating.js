@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { FaStar } from "react-icons/fa";
 import '../styles/StarRating.css'; 
+import React, { useRef } from 'react';
 
-const StarRating = ({ onRatingChange }) => {
-  const [rating, setRating] = useState(1);
+const StarRating = ({ value, onRatingChange }) => {
+  const starSpanRef = useRef(null); 
 
   const drawStar = (e) => {
-    const target = e.target;
-    setRating(target.value);
-    document.querySelector(`.star span`).style.width = `${target.value * 10}%`;
+    const newRating = e.target.value;
+    if (starSpanRef.current) {
+      starSpanRef.current.style.width = `${newRating * 10}%`; 
+    }
     if (onRatingChange) {
-      onRatingChange(target.value); 
+      onRatingChange(newRating); 
     }
   };
 
@@ -18,11 +18,11 @@ const StarRating = ({ onRatingChange }) => {
     <div className="star-rating">
       <span className="star">
         ★★★★★
-        <span>★★★★★</span>
+        <span ref={starSpanRef}>★★★★★</span>
         <input
           type="range"
           onInput={drawStar}
-          value={rating}
+          value={value} 
           step="1"
           min="0"
           max="10"
