@@ -1,0 +1,33 @@
+.owner-profile-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.profile-field {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.encouragement-message {
+  margin-top: 20px;
+  font-size: 18px;
+  text-align: center;
+  color: #333;
+}

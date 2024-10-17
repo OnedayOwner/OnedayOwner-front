@@ -1,0 +1,91 @@
+.feedback-container {
+  margin: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.feedback-list {
+  margin-top: 20px;
+}
+
+.feedback-item {
+  border: 1px solid #00796b;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #ffffff;
+  transition: box-shadow 0.3s;
+}
+
+.feedback-item:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-header {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.feedback-rating {
+  font-weight: bold;
+  color: #00796b;
+}
+
+.feedback-comment {
+  color: #555;
+}
+
+.feedback-details {
+  margin-top: 10px;
+}
+
+.menu-feedback-button {
+  background-color: #00796b; /* 버튼 배경색 */
+  color: white; /* 글자색 */
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.menu-feedback-button:hover {
+  background-color: #005f4f; /* 버튼 hover 색상 */
+}
+
+.menu-feedback-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menu-name {
+  font-weight: bold;
+  color: #00796b;
+  cursor: pointer;
+}
+
+.menu-feedback {
+  color: #555;
+  margin-left: 10px;
+}
+
+.full-feedback {
+  margin-top: 10px;
+  font-style: italic;
+}
+
+.more-button {
+  background-color: #00796b; /* 더보기 버튼 배경색 */
+  color: white; /* 글자색 */
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%; /* 버튼의 너비를 100%로 설정 */
+  box-sizing: border-box; /* 패딩과 보더를 포함한 박스 모델 설정 */
+}
+
+.more-button:hover {
+  background-color: #005f4f; /* 더보기 버튼 hover 색상 */
+}
