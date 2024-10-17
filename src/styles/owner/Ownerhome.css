@@ -1,120 +1,205 @@
-/* src/Ownerhome.css */
-
 .ownerhome-container {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  h1 {
-    text-align: center;
-  }
-  
-  .tab-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
-  .tab-button {
-    flex: 1;
-    padding: 20px;
-    background-color: #f0f0f0;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    transition: background-color 0.3s;
-  }
-  
-  .tab-button.active, .tab-button:hover {
-    background-color: #ddd;
-  }
-  
-  .popup-details, .popup-list {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .popup-info {
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-  }
-  
-  .popup-image {
-    background-color: #f0f0f0;
-    height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .popup-description {
-    margin-bottom: 20px;
-  }
-  
-  .popup-description h3 {
-    margin-top: 0;
-  }
-  
-  .menu-list {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-  }
-  
-  .menu-item {
-    display: flex;
-    margin-bottom: 10px;
-  }
-  
-  .menu-image {
-    width: 100px;
-    height: 100px;
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 10px;
-  }
-  
-  .menu-description {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .register-button,.detail-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 10px;
-  }
-  
-  .register-button:hover, .detail-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .action-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
-  
-  .action-buttons button {
-    flex: 1;
-    margin-right: 10px;
-  }
-  
-  .action-buttons button:last-child {
-    margin-right: 0;
-  }
-  
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+}
+
+.tab-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  flex: 1;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.tab-button.active,
+.tab-button:hover {
+  background-color: #ddd;
+}
+
+.popup-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.popup-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: box-shadow 0.3s;
+}
+
+.popup-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.popup-description {
+  display: flex;
+  flex-direction: column;
+}
+
+.popup-description h3 {
+  margin: 0;
+}
+
+.details-button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.details-button:hover {
+  background-color: #0056b3;
+}
+
+.popup-info {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.back-button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #00796b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}
+
+.popup-image {
+  background-color: #f0f0f0;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.popup-description {
+  margin-bottom: 20px;
+}
+
+.popup-description h3 {
+  margin-top: 0;
+}
+
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.menu-item {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.menu-image {
+  width: 100px;
+  height: 100px;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.menu-description {
+  display: flex;
+  flex-direction: column;
+}
+
+.register-button {
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #00796b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+
+.register-button:hover {
+  background-color: #004d40;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.action-buttons button {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.action-buttons button:last-child {
+  margin-right: 0;
+}
+.popup-summary {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.popup-summary:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.popup-image {
+  width: 120px; /* 디자인에 맞게 조정 */
+  height: 100px;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px; /* 이미지와 이름 사이의 간격 */
+}
+
+.popup-name {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.popup-name h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #333;
+}

@@ -11,7 +11,8 @@ const OwnerRegistration = () => {
     const [storeName, setStoreName] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
-    const [businessHours, setBusinessHours] = useState('');
+    const [businessStartHours, setBusinessStartHours] = useState('');
+    const [businessEndHours, setBusinessEndHours] = useState('');
     const [maxReservations, setMaxReservations] = useState('');
     const [popupDescription, setPopupDescription] = useState('');
     const [menuItems, setMenuItems] = useState([{ name: '', description: '', price: '', remarks: '' }]);
@@ -51,9 +52,14 @@ const OwnerRegistration = () => {
         setErrors(prevErrors => ({ ...prevErrors, endDate: false }));
     }
 
-    const handleBusinessHoursChange = (e) => {
-        setBusinessHours(e.target.value);
-        setErrors(prevErrors => ({ ...prevErrors, businessHours: false }));
+    const handleBusinessStartChange = (e) => {
+        setBusinessStartHours(e.target.value);
+        setErrors(prevErrors => ({ ...prevErrors, businessStartHours: false }));
+    }
+
+    const handleBusinessEndChange = (e) => {
+        setBusinessEndHours(e.target.value);
+        setErrors(prevErrors => ({ ...prevErrors, businessEndHours: false }));
     }
 
     const handleMaxReservationsChange = (e) => {
@@ -107,8 +113,8 @@ const OwnerRegistration = () => {
                 detail: detailAddress
             },
             businessTimes: [{
-                openTime: businessHours ? businessHours + ":00" : null,
-                closeTime: businessHours ? businessHours + ":00" : null,
+                openTime: businessStartHours ? businessStartHours + ":00" : null,
+                closeTime: businessEndHours ? businessEndHours + ":00" : null,
                 reservationTimeUnit: 30,
                 maxPeoplePerTime: Number(maxReservations)
             }],
@@ -129,7 +135,7 @@ const OwnerRegistration = () => {
                 }
             });
             alert('등록이 완료되었습니다.');
-            navigate('/Ownerhome');
+            navigate('/owner/home');
         } catch (error) {
             console.error('팝업 등록 중 오류가 발생했습니다:', error.response ? error.response.data : error.message);
             alert(`팝업 등록 중 오류가 발생했습니다: ${error.response ? JSON.stringify(error.response.data) : error.message}`);
@@ -138,7 +144,7 @@ const OwnerRegistration = () => {
 
     const handleCancelClick = () => {
         alert('등록이 취소되었습니다.');
-        navigate('/Ownerhome');
+        navigate('/owner/home');
     }
 
     const handlePostcodeComplete = (data) => {
@@ -253,10 +259,17 @@ const OwnerRegistration = () => {
                     />
                     <input
                         type="time"
-                        placeholder="팝업 진행 시간"
-                        value={businessHours}
-                        onChange={handleBusinessHoursChange}
-                        className={errors.businessHours ? 'error' : ''}
+                        placeholder="팝업 시작 시간"
+                        value={businessStartHours}
+                        onChange={handleBusinessStartChange}
+                        className={errors.businessStartHours ? 'error' : ''}
+                    />
+                    <input
+                        type="time"
+                        placeholder="팝업 종료 시간"
+                        value={businessEndHours}
+                        onChange={handleBusinessEndChange}
+                        className={errors.businessEndHours ? 'error' : ''}
                     />
                     <input
                         type="number"
@@ -297,6 +310,7 @@ const OwnerRegistration = () => {
                                 placeholder="메뉴 가격"
                                 value={menuItem.price}
                                 onChange={(e) => handleMenuItemChange(index, 'price', e.target.value)}
+                                step="1000"
                                 className={errors[`menuPrice${index}`] ? 'error' : ''}
                             />
                         </div>
