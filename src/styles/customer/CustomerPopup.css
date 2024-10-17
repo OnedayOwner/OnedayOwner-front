@@ -1,0 +1,102 @@
+.customer-popup-container {
+    padding: 20px;
+}
+
+.customer-popup-images {
+    display: flex;
+    justify-content: space-between;
+}
+
+.customer-popup-image {
+    width: 49%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+    margin: 0;
+}
+
+.customer-popup-restaurant-name {
+    font-size: 24px;
+    font-weight: 100;
+    margin-bottom: 15px;
+    margin-left: 10px;
+}
+
+.customer-popup-info {
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.customer-popup-info-item {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+    color: #888; 
+}
+
+.customer-popup-icon {
+    margin-right: 8px;
+}
+
+.customer-popup-map {
+    margin-bottom: 20px;
+}
+
+.customer-popup-map h2,
+.customer-popup-menu h2 {
+    font-size: 24px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    font-weight: 100;
+    color: #004a42;
+}
+
+.customer-popup-map-container {
+    width: 100%;
+    height: 200px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    background-color: #e0e0e0;
+}
+
+.customer-popup-menu {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.customer-popup-menu-item {
+    position: relative;
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.customer-popup-menu-image {
+    width: 30%;
+    height: 30%;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+}
+
+.customer-popup-menu-info {
+    margin-left: 15px;
+    flex: 1;
+}
+
+.customer-popup-menu-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.customer-popup-menu-description {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.customer-popup-menu-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}

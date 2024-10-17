@@ -1,0 +1,80 @@
+.customer-myreservation-container {
+    padding: 10px;
+}
+
+.customer-myreservation-header {
+    text-align: left;
+    align-self: flex-start;
+    margin-top: 4vh;
+}
+
+.customer-myreservation-header__title {
+    margin-left: 25px;
+    font-size: 35px;
+    font-weight: 300;
+    color: #004d40;
+}
+
+.customer-myreservation-tabs {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.customer-myreservation-tab {
+    width: 100%;
+    padding: 10px 20px;
+    border: 1px solid #00796b;
+    background-color: white;
+    color: #00796b;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.customer-myreservation-tab.active {
+    background-color: #00796b;
+    color: white;
+}
+
+.customer-myreservation-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.reservation-item {
+    display: flex;
+    padding: 10px;
+    border-radius: 12px;
+    background-color: #f5f5f5;
+}
+
+.reservation-item__image {
+    width: 30%;
+    height: auto;
+    border-radius: 8px;
+    margin-right: 15px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+}
+
+.reservation-item__details {
+    display: flex;
+    flex-direction: column;
+}
+
+.reservation-item__name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 3px;
+    margin-bottom: 10px;
+}
+
+.reservation-item__address,
+.reservation-item__datetime,
+.reservation-item__people {
+    font-size: 14px;
+    color: #888;
+    margin: 3px 0;
+}
