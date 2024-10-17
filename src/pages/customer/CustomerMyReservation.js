@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import instance from '../login/axios'; 
 import '../../styles/customer/CustomerMyReservation.css';
 
 const CustomerMyReservation = () => {
+    const navigate = useNavigate(); 
     const [upcomingReservations, setUpcomingReservations] = useState([]);
     const [completedReservations, setCompletedReservations] = useState([]);
-    const [activeTab, setActiveTab] = useState('upcoming'); // 'upcoming' or 'completed'
+    const [activeTab, setActiveTab] = useState('upcoming'); 
     const [loading, setLoading] = useState(false); 
     const [error, setError] = useState(null); 
 
@@ -43,8 +45,16 @@ const CustomerMyReservation = () => {
         }
     }, [activeTab]);
 
+    const handleReservationClick = (reservationId) => {
+        navigate(`/customer/myreservation/${reservationId}`); // 해당 예약 ID로 네비게이트
+    };
+
     const renderReservationItem = (reservation) => (
-        <div key={reservation.id} className="reservation-item">
+        <div 
+            key={reservation.id} 
+            className="reservation-item"
+            onClick={() => handleReservationClick(reservation.id)}
+        >
             <img
                 src={reservation.menuImageUrl || 'https://via.placeholder.com/100'}
                 alt="restaurant"

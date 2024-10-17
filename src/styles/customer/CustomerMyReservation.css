@@ -50,6 +50,10 @@
     background-color: #f5f5f5;
 }
 
+.reservation-item:active {
+    background-color: #ccc;
+}
+
 .reservation-item__image {
     width: 30%;
     height: auto;
