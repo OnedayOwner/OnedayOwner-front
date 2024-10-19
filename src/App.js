@@ -20,6 +20,7 @@ import CustomerReservationMenu from './pages/customer/CustomerReservationMenu';
 import CustomerReservationDetail from './pages/customer/CustomerReservationDetail';
 import CustomerFeedback from './pages/customer/CustomerFeedback';
 import CustomerMyFeedback from './pages/customer/CustomerMyFeedback';
+import CustomerFeedbackDetail from './pages/customer/CustomerFeedbackDetail';
 
 const App = () => {
   return (
@@ -46,6 +47,7 @@ const App = () => {
             <Route path="/customer/reservation/menu/:popupId" element={<Layout headText="예약" footerType="customer"><CustomerReservationMenu /></Layout>} />
             <Route path="/customer/myreservation/:reservationId" element={<Layout headText="예약 내역" footerType="customer"><CustomerReservationDetail /></Layout>} />
             <Route path="/customer/feedback/:reservationId" element={<Layout headText="피드백" footerType="customer"><CustomerFeedback /></Layout>} />
+            <Route path="/customer/myfeedback/:feedbackId" element={<Layout headText="피드백 내역" footerType="customer"><CustomerFeedbackDetail /></Layout>} />
           </Routes>
         </div>
       </BrowserRouter>

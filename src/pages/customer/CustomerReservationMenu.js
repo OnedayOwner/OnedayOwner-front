@@ -125,6 +125,11 @@ const CustomerReservationMenu = () => {
             {showConfirmation && (
                 <div className="customer-reservation-confirmation-popup">
                     <p>{`${formattedDate} ${formattedTime}에 예약하시겠습니까?`}</p>
+                    <p
+                    style={{
+                        color: '#888'
+                      }}
+                    >(해당 예약은 피드백 작성을 전제로 하는 예약입니다.)</p>
                     <MyButton text="예" type="default" onClick={handleReservation}/>
                     <MyButton text="아니오" type="alt" onClick={() => setShowConfirmation(false)}/>
                 </div>

@@ -1,0 +1,149 @@
+.customer-myfeedback-container {
+    padding: 10px;
+}
+
+.customer-myfeedback-header {
+    text-align: left;
+    align-self: flex-start;
+    margin-top: 4vh;
+}
+
+.customer-myfeedback-header__title {
+    margin-left: 25px;
+    font-size: 35px;
+    font-weight: 300;
+    color: #004d40;
+}
+
+.customer-myfeedback-tabs {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.customer-myfeedback-tab {
+    width: 100%;
+    padding: 10px 20px;
+    border: 1px solid #00796b;
+    background-color: white;
+    color: #00796b;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.customer-myfeedback-tab.active {
+    background-color: #00796b;
+    color: white;
+}
+
+.customer-myfeedback-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.customer-myfeedback-reservation-item {
+    display: flex;
+    padding: 10px;
+    border-radius: 12px;
+    background-color: #f5f5f5;
+}
+
+.customer-myfeedback-reservation-item__image {
+    width: 30%;
+    height: auto;
+    border-radius: 8px;
+    margin-right: 15px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+}
+
+.customer-myfeedback-reservation-item__details {
+    display: flex;
+    flex-direction: column;
+}
+
+.customer-myfeedback-reservation-item__name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 3px;
+    margin-bottom: 10px;
+}
+
+.customer-myfeedback-reservation-item__address,
+.customer-myfeedback-reservation-item__datetime,
+.customer-myfeedback-reservation-item__people {
+    font-size: 14px;
+    color: #888;
+    margin: 3px 0;
+}
+
+.customer-myfeedback-instruction {
+    margin: 0px;
+    padding-left: 5px;
+    color: #888;
+}
+
+.customer-myfeedback-icon {
+    margin-right: 8px;
+}
+
+/* Completed item styles */
+.customer-myfeedback-completed-item__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.customer-myfeedback-completed-item__name {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 5px;
+}
+
+.customer-myfeedback-completed-item__score {
+    display: flex;
+    align-items: center;
+    margin: 5px;
+}
+
+.customer-myfeedback-completed-item__datetime {
+    font-size: 14px;
+    color: #888;
+    margin: 3px 0;
+    margin-bottom: 10px;
+}
+.customer-myfeedback-completed-item__comment {
+    font-size: 14px;
+    color: #888;
+    margin: 3px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.customer-myfeedback-completed-item {
+    padding: 10px;
+    border-radius: 12px;
+    background-color: #f5f5f5;
+}
+
+.customer-myfeedback-star-rating {
+    position: relative;
+    font-size: 1.5rem;
+    color: #ddd;
+    display: inline-block;
+}
+
+.customer-myfeedback-star-rating span {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    color: #ffd700;
+    overflow: hidden;
+}

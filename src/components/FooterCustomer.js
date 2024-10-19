@@ -21,7 +21,7 @@ const FooterCustomer = () => {
             </Link>
             <Link to="/customer/myfeedback" className={`footer-item ${isActive("/customer/myfeedback") ? "active" : ""}`}>
                 <FontAwesomeIcon icon={faCommentDots} className="footer-icon" />
-                <span className="footer-text">내 피드백</span>
+                <span className="footer-text">피드백</span>
             </Link>
             <Link to="/customer/profile" className={`footer-item ${isActive("/customer/profile") ? "active" : ""}`}>
                 <FontAwesomeIcon icon={faUser} className="footer-icon" />
