@@ -51,7 +51,7 @@ const CustomerReservationDetail = () => {
         return <p>예약 데이터를 불러오지 못했습니다.</p>;
     }
 
-    const { popupSummaryForReservation, reservationMenuDetails, reservationDateTime, numberOfPeople, totalPrice, isCompleted } = reservationData;
+    const { popupSummaryForReservation, reservationMenuDetails, reservationDateTime, numberOfPeople, totalPrice, isFeedbackEnabled } = reservationData;
     const { name, address } = popupSummaryForReservation;
 
     const handlePopupClick = (popupId) => {
@@ -80,7 +80,7 @@ const CustomerReservationDetail = () => {
                 </p>
             </div>
 
-            {isCompleted && (
+            {isFeedbackEnabled && (
                 <div className="customer-reservation-detail-reservation-button">
                     <MyButton text="피드백 작성하기" type="default" onClick={() => handleFeedbackClick(popupSummaryForReservation.id)} />
                 </div>
