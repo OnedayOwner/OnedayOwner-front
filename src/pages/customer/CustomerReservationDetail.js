@@ -59,7 +59,7 @@ const CustomerReservationDetail = () => {
     };
 
     const handleFeedbackClick = (popupId) => {
-        navigate(`/customer/feedback/${popupId}`);
+        navigate(`/customer/feedback/${reservationId}`);
     };
 
     return (

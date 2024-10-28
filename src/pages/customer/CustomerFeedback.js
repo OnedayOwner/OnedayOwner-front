@@ -1,6 +1,6 @@
 import { FaPencilAlt, FaStar, FaCoins } from "react-icons/fa";
 import MyButton from "../../components/MyButton";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axiosInstance from "../login/axios";
 import "../../styles/customer/CustomerFeedback.css";
 import StarRating from "../../components/StarRating";
@@ -8,10 +8,15 @@ import { useState, useEffect } from "react";
 
 const CustomerFeedback = () => {
   const { reservationId } = useParams();
+  const navigate = useNavigate();
+  
   const [reservationData, setReservationData] = useState(null);
   const [feedback, setFeedback] = useState("");
   const [menuFeedbackVisible, setMenuFeedbackVisible] = useState({});
   const [menuRatings, setMenuRatings] = useState({});
+  const [overallRating, setOverallRating] = useState(0);
+  const [menuComments, setMenuComments] = useState({});
+  const [menuDesiredPrices, setMenuDesiredPrices] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -31,11 +36,11 @@ const CustomerFeedback = () => {
 
   if (loading) {
     return (
-        <div className="loading-container">
-            <div className="loading-spinner"></div>
-        </div>
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+      </div>
     );
-}
+  }
 
   if (!reservationData) {
     return <p>예약 데이터를 불러오지 못했습니다.</p>;
@@ -43,10 +48,28 @@ const CustomerFeedback = () => {
 
   const { popupSummaryForReservation, reservationMenuDetails } = reservationData;
 
-  const handleRatingChange = (index, newRating) => {
+  const handleMenuRatingChange = (index, newRating) => {
     setMenuRatings((prevRatings) => ({
       ...prevRatings,
-      [index]: newRating,
+      [index]: newRating / 2,
+    }));
+  };
+
+  const handleOverallRatingChange = (newRating) => {
+    setOverallRating(newRating / 2);
+  };
+
+  const handleMenuCommentChange = (index, comment) => {
+    setMenuComments((prevComments) => ({
+      ...prevComments,
+      [index]: comment,
+    }));
+  };
+
+  const handleDesiredPriceChange = (index, price) => {
+    setMenuDesiredPrices((prevPrices) => ({
+      ...prevPrices,
+      [index]: price,
     }));
   };
 
@@ -61,6 +84,36 @@ const CustomerFeedback = () => {
     }));
   };
 
+  const isSubmitButtonDisabled = feedback.trim() === "";
+
+  const handleSubmitFeedback = async () => {
+    const feedbackData = {
+      score: overallRating,
+      comment: feedback,
+      menuFeedBackForms: reservationMenuDetails
+        .map((menu, index) => ({
+          reservationMenuId: menu.id,
+          score: menuRatings[index] || 0,
+          desiredPrice: menuDesiredPrices[index] || 0, 
+          comment: menuComments[index] || "", 
+        }))
+        .filter((menuFeedback) => menuFeedback.comment || menuFeedback.score > 0 || menuFeedback.desiredPrice > 0), 
+    };
+  
+    try {
+      const response = await axiosInstance.post(
+        `/customers/feedbacks/${reservationId}`,
+        feedbackData
+      );
+      const feedbackId = response.data.feedbackId;
+      navigate(`/customer/myfeedback/${feedbackId}`);
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || "피드백 제출 중 오류가 발생했습니다.";
+      console.error("Error submitting feedback:", errorMessage);
+      alert(errorMessage);
+    }
+  };
+
   return (
     <div className="customer-feedback-container">
       <h1 className="customer-feedback-restaurant-name">
@@ -73,8 +126,8 @@ const CustomerFeedback = () => {
           <span className="customer-feedback-text">별점을 선택해주세요</span>
         </p>
         <StarRating 
-          value={menuRatings["global"] || 0} 
-          onRatingChange={(newRating) => handleRatingChange("global", newRating)} 
+          value={overallRating * 2}
+          onRatingChange={handleOverallRatingChange} 
         />
 
         <p className="customer-feedback-info-item">
@@ -126,9 +179,9 @@ const CustomerFeedback = () => {
                   <span className="customer-feedback-text">별점을 선택해주세요</span>
                 </p>
                 <StarRating
-                  value={menuRatings[index] || 0}
+                  value={(menuRatings[index] || 0) * 2} 
                   onRatingChange={(newRating) =>
-                    handleRatingChange(index, newRating)
+                    handleMenuRatingChange(index, newRating)
                   }
                 />
                 <p className="customer-feedback-info-item">
@@ -139,6 +192,10 @@ const CustomerFeedback = () => {
                   className="customer-feedback-menu-form-textarea"
                   placeholder="창업 희망자에게 전달할 피드백을 작성해주세요. 욕설, 비방, 명예훼손성 표현은 지양해주세요.(최대 500자)"
                   maxLength={500}
+                  value={menuComments[index] || ""}
+                  onChange={(e) =>
+                    handleMenuCommentChange(index, e.target.value)
+                  }
                 />
                 <p className="customer-feedback-info-item">
                   <FaCoins className="customer-feedback-icon" />
@@ -149,6 +206,10 @@ const CustomerFeedback = () => {
                   className="customer-feedback-menu-form-price-input"
                   placeholder="메뉴의 적정 가격을 입력해주세요.(숫자만 입력)"
                   min={0}
+                  value={menuDesiredPrices[index] || ""}
+                  onChange={(e) =>
+                    handleDesiredPriceChange(index, e.target.value)
+                  }
                 />
               </div>
             )}
@@ -159,7 +220,8 @@ const CustomerFeedback = () => {
         <MyButton
           text="피드백 등록하기"
           type="default"
-          onClick={() => alert("피드백 등록")}
+          onClick={handleSubmitFeedback}
+          disabled={isSubmitButtonDisabled}
         />
       </div>
     </div>
