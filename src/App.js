@@ -12,7 +12,6 @@ import SMSVerification from './pages/login/SMSVerification';
 import Layout from './components/Layout';
 import Onboarding from './pages/login/Onboarding';
 import OwnerProfile from './pages/owner/OwnerProfile';
-import CustomerSearch from './pages/customer/CustomerSearch';
 import CustomerProfile from './pages/customer/CustomerProfile';
 import CustomerPopup from './pages/customer/CustomerPopup';
 import CustomerMyReservation from './pages/customer/CustomerMyReservation';
@@ -20,6 +19,8 @@ import CustomerReservation from './pages/customer/CustomerReservation';
 import CustomerReservationMenu from './pages/customer/CustomerReservationMenu';
 import CustomerReservationDetail from './pages/customer/CustomerReservationDetail';
 import CustomerFeedback from './pages/customer/CustomerFeedback';
+import CustomerMyFeedback from './pages/customer/CustomerMyFeedback';
+import CustomerFeedbackDetail from './pages/customer/CustomerFeedbackDetail';
 
 const App = () => {
   return (
@@ -38,7 +39,7 @@ const App = () => {
             <Route path="/owner/profile" element={<Layout showHeader={false} footerType="owner"><OwnerProfile /></Layout>} />
             
             <Route path="/customer/home" element={<Layout showHeader={false} footerType="customer"><Customerhome /></Layout>} />
-            <Route path="/customer/search" element={<Layout showHeader={false} footerType="customer"><CustomerSearch /></Layout>} />
+            <Route path="/customer/myfeedback" element={<Layout showHeader={false} footerType="customer"><CustomerMyFeedback /></Layout>} />
             <Route path="/customer/myreservation" element={<Layout showHeader={false} footerType="customer"><CustomerMyReservation /></Layout>} />
             <Route path="/customer/profile" element={<Layout showHeader={false} footerType="customer"><CustomerProfile /></Layout>} />
             <Route path="/customer/popup/:popupId" element={<Layout headText="팝업 상세" footerType="customer"><CustomerPopup /></Layout>} />
@@ -46,6 +47,7 @@ const App = () => {
             <Route path="/customer/reservation/menu/:popupId" element={<Layout headText="예약" footerType="customer"><CustomerReservationMenu /></Layout>} />
             <Route path="/customer/myreservation/:reservationId" element={<Layout headText="예약 내역" footerType="customer"><CustomerReservationDetail /></Layout>} />
             <Route path="/customer/feedback/:reservationId" element={<Layout headText="피드백" footerType="customer"><CustomerFeedback /></Layout>} />
+            <Route path="/customer/myfeedback/:feedbackId" element={<Layout headText="피드백 내역" footerType="customer"><CustomerFeedbackDetail /></Layout>} />
           </Routes>
         </div>
       </BrowserRouter>
