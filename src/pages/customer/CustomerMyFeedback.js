@@ -17,7 +17,7 @@ const CustomerMyFeedback = () => {
     const fetchWritableReservations = async () => {
         try {
             setLoading(true);
-            const response = await instance.get('/customers/reservations/writable');
+            const response = await instance.get('/customers/reservations/completed/unreviewed');
             setWritableReservations(response.data);
         } catch (err) {
             console.error('Error fetching writable reservations:', err);
