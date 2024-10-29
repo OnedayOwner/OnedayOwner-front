@@ -1,47 +1,60 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaInfoCircle } from 'react-icons/fa';
+import instance from '../login/axios';
 import '../../styles/customer/CustomerMyFeedback.css';
 
 const CustomerMyFeedback = () => {
     const navigate = useNavigate(); 
     const [activeTab, setActiveTab] = useState('active'); 
+    const [writableReservations, setWritableReservations] = useState([]); 
+    const [feedbacks, setFeedbacks] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
     const starSpanRef = useRef(null);
 
-    const dummyCompletedReservations = [
-        {
-            id: 1,
-            popupName: '일식 팝업 레스토랑',
-            address: { street: '서울시 강남구', detail: '테헤란로 123' },
-            reservationDateTime: new Date().toISOString(),
-            numberOfPeople: 2,
-            menuImageUrl: 'https://via.placeholder.com/100',
-        },
-        {
-            id: 2,
-            popupName: '이탈리안 팝업 레스토랑',
-            address: { street: '서울시 강남구', detail: '역삼로 456' },
-            reservationDateTime: new Date().toISOString(),
-            numberOfPeople: 4,
-            menuImageUrl: 'https://via.placeholder.com/100',
-        },
-    ];
+    // '/customers/reservations/writable' 엔드포인트에서 작성 가능한 예약을 불러옵니다
+    const fetchWritableReservations = async () => {
+        try {
+            setLoading(true);
+            const response = await instance.get('/customers/reservations/writable');
+            setWritableReservations(response.data);
+        } catch (err) {
+            console.error('Error fetching writable reservations:', err);
+            setError('피드백 작성 가능한 예약을 불러오는 중 오류가 발생했습니다.');
+        } finally {
+            setLoading(false);
+        }
+    };
 
-    const dummyFeedbacks = [
-        {
-            id: 3,
-            popupName: '한식 팝업 레스토랑',
-            score: 4.5,
-            reservationDateTime: new Date().toISOString(),
-            comment: "피드백 내용~~~~~피드백 내용~~~~~피드백 내용~~~~~피드백 내용~~~~~피드백 내용~~~~~피드백 내용~~~~~피드백 내용~~~~~피드백 내용~~~~~피드백 내용~~~~~피드백 내용~~~~~"
-        },{
-            id: 4,
-            popupName: '중식 팝업 레스토랑',
-            score: 5,
-            reservationDateTime: new Date().toISOString(),
-            comment: "피드백 내용~~~~~피드백 내용~~~~~피드백 내용~~~~~피드백 내용~~~~~피드백 내용~~~~~피드백 내용~~~~~피드백 내용~~~~~피드백 내용~~~~~피드백 내용~~~~~피드백 내용~~~~~"
-        },
-    ];
+    // '내 피드백' 데이터를 불러오는 함수 (예제에서는 더미 데이터를 사용 중)
+    const fetchFeedbacks = () => {
+        // 실제 데이터가 있는 경우 API 호출
+        setFeedbacks([
+            {
+                id: 3,
+                popupName: '한식 팝업 레스토랑',
+                score: 4.5,
+                reservationDateTime: new Date().toISOString(),
+                comment: "피드백 내용~~~~~"
+            },
+            {
+                id: 4,
+                popupName: '중식 팝업 레스토랑',
+                score: 5,
+                reservationDateTime: new Date().toISOString(),
+                comment: "피드백 내용~~~~~"
+            },
+        ]);
+    };
+
+    useEffect(() => {
+        if (activeTab === 'active') {
+            fetchWritableReservations();
+        } else {
+            fetchFeedbacks();
+        }
+    }, [activeTab]);
 
     const handleReservationClick = (reservationId) => {
         navigate(`/customer/feedback/${reservationId}`); 
@@ -129,9 +142,13 @@ const CustomerMyFeedback = () => {
           </div>
         </div>
 
-        {activeTab === "active" ? (
+        {loading ? (
+            <div className="loading-spinner"></div>
+        ) : error ? (
+            <p className="customer-myfeedback-error">{error}</p>
+        ) : activeTab === "active" ? (
           <div className="customer-myfeedback-list">
-            {dummyCompletedReservations.length === 0 ? (
+            {writableReservations.length === 0 ? (
               <p className="customer-myfeedback-empty">
                 피드백 작성 가능한 예약이 없습니다.
               </p>
@@ -139,20 +156,20 @@ const CustomerMyFeedback = () => {
               <>
                 <p className="customer-myfeedback-instruction">
                   <FaInfoCircle className="customer-myfeedback-icon" />
-                   여러분의 이용 경험을 피드백으로 작성해주세요!
+                  여러분의 이용 경험을 피드백으로 작성해주세요!
                 </p>
-                {dummyCompletedReservations.map(renderReservationItem)}
+                {writableReservations.map(renderReservationItem)}
               </>
             )}
           </div>
         ) : (
           <div className="customer-myfeedback-list">
-            {dummyFeedbacks.length === 0 ? (
+            {feedbacks.length === 0 ? (
               <p className="customer-myfeedback-empty">
                 작성한 피드백이 없습니다.
               </p>
             ) : (
-                dummyFeedbacks.map(renderFeedbackItem) 
+                feedbacks.map(renderFeedbackItem) 
             )}
           </div>
         )}
