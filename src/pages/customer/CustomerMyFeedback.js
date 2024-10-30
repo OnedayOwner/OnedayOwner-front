@@ -13,7 +13,7 @@ const CustomerMyFeedback = () => {
     const [error, setError] = useState(null);
     const starSpanRef = useRef(null);
 
-    // '/customers/reservations/writable' 엔드포인트에서 작성 가능한 예약을 불러옵니다
+    // '/customers/reservations/completed/unreviewed' 엔드포인트에서 작성 가능한 예약을 불러옵니다
     const fetchWritableReservations = async () => {
         try {
             setLoading(true);
@@ -27,25 +27,18 @@ const CustomerMyFeedback = () => {
         }
     };
 
-    // '내 피드백' 데이터를 불러오는 함수 (예제에서는 더미 데이터를 사용 중)
-    const fetchFeedbacks = () => {
-        // 실제 데이터가 있는 경우 API 호출
-        setFeedbacks([
-            {
-                id: 3,
-                popupName: '한식 팝업 레스토랑',
-                score: 4.5,
-                reservationDateTime: new Date().toISOString(),
-                comment: "피드백 내용~~~~~"
-            },
-            {
-                id: 4,
-                popupName: '중식 팝업 레스토랑',
-                score: 5,
-                reservationDateTime: new Date().toISOString(),
-                comment: "피드백 내용~~~~~"
-            },
-        ]);
+    // '내 피드백' 데이터를 '/customers/feedbacks/list'에서 불러오는 함수
+    const fetchFeedbacks = async () => {
+        try {
+            setLoading(true);
+            const response = await instance.get('/customers/feedbacks/list');
+            setFeedbacks(response.data);
+        } catch (err) {
+            console.error('Error fetching feedbacks:', err);
+            setError('피드백을 불러오는 중 오류가 발생했습니다.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     useEffect(() => {
@@ -93,9 +86,9 @@ const CustomerMyFeedback = () => {
 
     const renderFeedbackItem = (feedback) => (
         <div 
-            key={feedback.id} 
+            key={feedback.feedbackId} 
             className="customer-myfeedback-completed-item"
-            onClick={() => handleFeedbackClick(feedback.id)}
+            onClick={() => handleFeedbackClick(feedback.feedbackId)}
         >
             <div className="customer-myfeedback-completed-item__header">
                 <h2 className="customer-myfeedback-completed-item__name">{feedback.popupName}</h2>
@@ -108,8 +101,8 @@ const CustomerMyFeedback = () => {
             </div>
             <div className="customer-myfeedback-completed-item__details">
                 <p className="customer-myfeedback-completed-item__datetime">
-                    {new Date(feedback.reservationDateTime).toLocaleDateString()}{' '}
-                    {new Date(feedback.reservationDateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    {new Date(feedback.visitedTime).toLocaleDateString()}{' '}
+                    {new Date(feedback.visitedTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </p>
                 <p className="customer-myfeedback-completed-item__comment">
                     {feedback.comment}
