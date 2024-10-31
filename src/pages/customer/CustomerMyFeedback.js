@@ -13,7 +13,6 @@ const CustomerMyFeedback = () => {
     const [error, setError] = useState(null);
     const starSpanRef = useRef(null);
 
-    // '/customers/reservations/completed/unreviewed' 엔드포인트에서 작성 가능한 예약을 불러옵니다
     const fetchWritableReservations = async () => {
         try {
             setLoading(true);
@@ -27,7 +26,6 @@ const CustomerMyFeedback = () => {
         }
     };
 
-    // '내 피드백' 데이터를 '/customers/feedbacks/list'에서 불러오는 함수
     const fetchFeedbacks = async () => {
         try {
             setLoading(true);
