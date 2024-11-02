@@ -18,8 +18,14 @@ const Ownerhome = () => {
     setSelectedCompletedPopup(null); // 탭을 변경할 때 상세보기 초기화
   };
 
-  const handleFeedbackClick = () => navigate('/owner/feedback');
-  const handleReservationStatusClick = () => navigate('/owner/reservationStatus');
+  const handleFeedbackClick = () => navigate(`/owner/feedback/${popup.id}`);
+  const handleReservationStatusClick = () => {
+    if (popup) {
+      navigate(`/owner/reservationstatus/${popup.id}`);
+    } else {
+      alert("현재 진행 중인 팝업이 없습니다.");
+    }
+  };
   const handleRegisterClick = () => navigate('/owner/registration');
 
   useEffect(() => {
@@ -136,6 +142,7 @@ const Ownerhome = () => {
                 <p><strong>상세 주소:</strong> {popup.address.detail}</p>
                 <p><strong>설명:</strong> {popup.description}</p>
                 <p><strong>팝업 기간:</strong> {popup.startDateTime} ~ {popup.endDateTime}</p>
+                <p><strong>영업 시간:</strong> {popup.businessTimes[0]?.openTime} ~ {popup.businessTimes[0]?.closeTime}</p>
               </div>
               <div className="menu-list">
                 {popup.menus.map((menu, index) => (
@@ -178,7 +185,6 @@ const Ownerhome = () => {
                 <p><strong>상세 주소:</strong> {selectedCompletedPopup.address.detail}</p>
                 <p><strong>설명:</strong> {selectedCompletedPopup.description}</p>
                 <p><strong>기간:</strong> {selectedCompletedPopup.startDateTime} ~ {selectedCompletedPopup.endDateTime}</p>
-
                 <div className="menu-list">
                   {selectedCompletedPopup.menus.map((menu, index) => (
                     <div key={index} className="menu-item">
