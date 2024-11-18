@@ -1,4 +1,3 @@
-/* Registration Specific Styles */
 .registration-container {
   padding: 20px;
 }
@@ -14,8 +13,6 @@
   box-sizing: border-box;
   height: 40px;
   margin-bottom: 20px;
-  padding: 0 10px;
-  border: 1px solid #e2e2e2;
 }
 
 .registration-container input[type="file"] {
@@ -44,36 +41,18 @@
 
 .registration-container .menu-item div {
   flex: 1;
-  margin-right: 10px;
 }
 
 .registration-container .menu-item img {
   height: 100%;
 }
 
-.registration-container .menu-item button {
-  margin-top: 10px;
-}
-
 .registration-container .menu-item:last-child {
   margin-right: 0;
 }
 
-.registration-container .add-menu-button {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.registration-container .add-menu-button button {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-}
-
 .registration-container .actions {
   display: flex;
-  justify-content: flex-end;
 }
 
 .registration-container .actions button {
@@ -86,4 +65,12 @@
 
 .registration-container .error {
   border-color: red;
+}
+
+.registration-title {
+  font-size: 24px;
+  margin-bottom: 5px;
+  margin-left: 10px;
+  font-weight: 100;
+  color: #004d40;
 }

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../../styles/owner/Registration.css';
+import '../../styles/owner/OwnerRegistration.css';
+import MyButton from '../../components/MyButton';
 
 const OwnerRegistration = () => {
     const navigate = useNavigate();
@@ -189,142 +190,221 @@ const OwnerRegistration = () => {
     }, []);
 
     return (
-        <div className="registration-container">
-            <div style={{ marginBottom: '20px', position: 'relative' }}>
-                <input
-                    type="text"
-                    placeholder='도로명 주소'
-                    value={roadAddress}
-                    onChange={handleRoadAddressChange}
-                    className={errors.roadAddress ? 'error' : ''}
-                    readOnly={isAddressSelected}
+      <div className="registration-container">
+        <h2 className="registration-title">
+          팝업 기본 정보 입력
+        </h2>
+        <div style={{ display: "flex", marginBottom: "20px" }}>
+          <div style={{ flex: 1, marginRight: "10px" }}>
+            <div
+              style={{
+                backgroundColor: "#f0f0f0",
+                height: "130px",
+                width: '130px',
+                borderRadius: '10px',
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginBottom: "10px",
+              }}
+            >
+              {storeImage ? (
+                <img
+                  src={URL.createObjectURL(storeImage)}
+                  alt="Store"
+                  style={{ height: "130px",width: '130px', borderRadius: '10px' }}
                 />
-                <button onClick={handlePostcodeButtonClick} className="address-search-button">검색</button>
+              ) : (
+                <span>팝업 사진</span>
+              )}
             </div>
-            <div>
-                <input 
-                    type='text'
-                    placeholder='우편번호'
-                    value={zipcode}
-                    onChange={handleZipcodeChange}
-                    className={errors.zipcode ? 'error' : ''}
-                    readOnly={isAddressSelected}
-                />
-            </div>
-            <div>
-                <input 
-                    type='text'
-                    placeholder='상세 주소'
-                    value={detailAddress}
-                    onChange={handleDetailAddressChange}
-                    className={errors.detailAddress ? 'error' : ''}
-                />
-            </div>
-            
-            <div style={{ display: 'flex', marginBottom: '20px' }}>
-                <div style={{ flex: 1, marginRight: '10px' }}>
-                    <div style={{ backgroundColor: '#f0f0f0', height: '150px', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '10px' }}>
-                        {storeImage ? <img src={URL.createObjectURL(storeImage)} alt="Store" style={{ height: '100%' }} /> : <span>매장 사진</span>}
-                    </div>
-                    <input type="file" accept="image/*" onChange={handleStoreImageChange} />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleStoreImageChange}
+            />
+          </div>
+          <div style={{ flex: 2 }}>
+            <input
+              type="text"
+              placeholder="팝업 이름"
+              value={storeName}
+              onChange={handleStoreNameChange}
+              className={errors.storeName ? "error" : ""}
+            />
+            <input
+              type="text"
+              placeholder="팝업 설명"
+              value={popupDescription}
+              onChange={handlePopupDescriptionChange}
+              className={errors.popupDescription ? "error" : ""}
+            />
+          </div>
+        </div>
+
+        <h2 className="registration-title">주소 정보 입력</h2>
+        <div style={{ marginBottom: "20px", position: "relative" }}>
+          <input
+            type="text"
+            placeholder="도로명 주소"
+            value={roadAddress}
+            onChange={handleRoadAddressChange}
+            className={errors.roadAddress ? "error" : ""}
+            readOnly={isAddressSelected}
+          />
+          <MyButton
+            text="검색"
+            type="default"
+            onClick={handlePostcodeButtonClick}
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="우편번호"
+            value={zipcode}
+            onChange={handleZipcodeChange}
+            className={errors.zipcode ? "error" : ""}
+            readOnly={isAddressSelected}
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="상세 주소"
+            value={detailAddress}
+            onChange={handleDetailAddressChange}
+            className={errors.detailAddress ? "error" : ""}
+          />
+        </div>
+
+        <h2 className="registration-title">영업 시간 입력</h2>
+
+        <input
+          type="datetime-local"
+          placeholder="시작 날짜와 시간"
+          value={startDate}
+          onChange={handleStartDateChange}
+          className={errors.startDate ? "error" : ""}
+        />
+        <input
+          type="datetime-local"
+          placeholder="종료 날짜와 시간"
+          value={endDate}
+          onChange={handleEndDateChange}
+          className={errors.endDate ? "error" : ""}
+        />
+        <input
+          type="time"
+          placeholder="팝업 시작 시간"
+          value={businessStartHours}
+          onChange={handleBusinessStartChange}
+          className={errors.businessStartHours ? "error" : ""}
+        />
+        <input
+          type="time"
+          placeholder="팝업 종료 시간"
+          value={businessEndHours}
+          onChange={handleBusinessEndChange}
+          className={errors.businessEndHours ? "error" : ""}
+        />
+        <input
+          type="number"
+          placeholder="시간 당 최대 예약 인원"
+          value={maxReservations}
+          onChange={handleMaxReservationsChange}
+          className={errors.maxReservations ? "error" : ""}
+        />
+        <h2 className="registration-title">메뉴 정보 입력</h2>
+        <div style={{ marginBottom: "10px" }}>
+          {menuItems.map((menuItem, index) => (
+            <div key={index} className="menu-item">
+              <div style={{ display: "flex", marginBottom: "20px" }}>
+                <div style={{ flex: 1, marginRight: "10px" }}>
+                  <div
+                    style={{
+                      backgroundColor: "#f0f0f0",
+                      height: "130px",
+                      width: '130px',
+                      borderRadius: '10px',
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    {menuImages[index] ? (
+                      <img
+                        src={URL.createObjectURL(menuImages[index])}
+                        alt="Menu"
+                        style={{ height: "130px",width: '130px', borderRadius: '10px' }}
+                      />
+                    ) : (
+                      <span>메뉴 사진</span>
+                    )}
+                  </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleMenuImageChange(index, e)}
+                    style={{
+                        border: '1px'
+                    }}
+                  />
                 </div>
                 <div style={{ flex: 2 }}>
+                  <div style={{ flex: 2 }}>
                     <input
-                        type="text"
-                        placeholder="팝업 설명"
-                        value={popupDescription}
-                        onChange={handlePopupDescriptionChange}
-                        className={errors.popupDescription ? 'error' : ''}
+                      type="text"
+                      placeholder="메뉴 이름"
+                      value={menuItem.name}
+                      onChange={(e) =>
+                        handleMenuItemChange(index, "name", e.target.value)
+                      }
+                      className={errors[`menuName${index}`] ? "error" : ""}
                     />
                     <input
-                        type="text"
-                        placeholder="매장 이름"
-                        value={storeName}
-                        onChange={handleStoreNameChange}
-                        className={errors.storeName ? 'error' : ''}
+                      type="text"
+                      placeholder="메뉴 설명"
+                      value={menuItem.description}
+                      onChange={(e) =>
+                        handleMenuItemChange(
+                          index,
+                          "description",
+                          e.target.value
+                        )
+                      }
+                      className={
+                        errors[`menuDescription${index}`] ? "error" : ""
+                      }
                     />
                     <input
-                        type="datetime-local"
-                        placeholder="시작 날짜와 시간"
-                        value={startDate}
-                        onChange={handleStartDateChange}
-                        className={errors.startDate ? 'error' : ''}
+                      type="number"
+                      placeholder="메뉴 가격"
+                      value={menuItem.price}
+                      onChange={(e) =>
+                        handleMenuItemChange(index, "price", e.target.value)
+                      }
+                      step="1000"
+                      className={errors[`menuPrice${index}`] ? "error" : ""}
                     />
-                    <input
-                        type="datetime-local"
-                        placeholder="종료 날짜와 시간"
-                        value={endDate}
-                        onChange={handleEndDateChange}
-                        className={errors.endDate ? 'error' : ''}
+                    <MyButton
+                      text="메뉴 삭제"
+                      type="default"
+                      onClick={() => removeMenuItem(index)}
                     />
-                    <input
-                        type="time"
-                        placeholder="팝업 시작 시간"
-                        value={businessStartHours}
-                        onChange={handleBusinessStartChange}
-                        className={errors.businessStartHours ? 'error' : ''}
-                    />
-                    <input
-                        type="time"
-                        placeholder="팝업 종료 시간"
-                        value={businessEndHours}
-                        onChange={handleBusinessEndChange}
-                        className={errors.businessEndHours ? 'error' : ''}
-                    />
-                    <input
-                        type="number"
-                        placeholder="시간 당 최대 예약 인원"
-                        value={maxReservations}
-                        onChange={handleMaxReservationsChange}
-                        className={errors.maxReservations ? 'error' : ''}
-                    />
+                  </div>
                 </div>
+              </div>
             </div>
-            <div>
-                {menuItems.map((menuItem, index) => (
-                    <div key={index} className="menu-item">
-                        <div style={{ flex: 1, marginRight: '10px' }}>
-                            <div style={{ backgroundColor: '#f0f0f0', height: '100px', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '10px' }}>
-                                {menuImages[index] ? <img src={URL.createObjectURL(menuImages[index])} alt="Menu" style={{ height: '100%' }} /> : <span>메뉴 사진</span>}
-                            </div>
-                            <input type="file" accept="image/*" onChange={(e) => handleMenuImageChange(index, e)} />
-                            <button onClick={() => removeMenuItem(index)}>메뉴 삭제</button>
-                        </div>
-                        <div style={{ flex: 2 }}>
-                            <input
-                                type="text"
-                                placeholder="메뉴 이름"
-                                value={menuItem.name}
-                                onChange={(e) => handleMenuItemChange(index, 'name', e.target.value)}
-                                className={errors[`menuName${index}`] ? 'error' : ''}
-                            />
-                            <input
-                                type="text"
-                                placeholder="메뉴에 대한 설명"
-                                value={menuItem.description}
-                                onChange={(e) => handleMenuItemChange(index, 'description', e.target.value)}
-                                className={errors[`menuDescription${index}`] ? 'error' : ''}
-                            />
-                            <input
-                                type="number"
-                                placeholder="메뉴 가격"
-                                value={menuItem.price}
-                                onChange={(e) => handleMenuItemChange(index, 'price', e.target.value)}
-                                step="1000"
-                                className={errors[`menuPrice${index}`] ? 'error' : ''}
-                            />
-                        </div>
-                    </div>
-                ))}
-                <div className="add-menu-button">
-                    <button onClick={addMenuItem}>+</button>
-                </div>
-            </div>
-            <div className="actions">
-                <button onClick={handleRegisterClick}>등록</button>
-                <button onClick={handleCancelClick}>취소</button>
-            </div>
+          ))}
+          <MyButton text="메뉴 추가" type="alt" onClick={addMenuItem} />
         </div>
+        <div className="actions">
+          <MyButton text="등록" type="default" onClick={handleRegisterClick} />
+          <MyButton text="취소" type="alt" onClick={handleCancelClick} />
+        </div>
+      </div>
     );
 }
 

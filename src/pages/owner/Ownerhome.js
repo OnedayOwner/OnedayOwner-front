@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { popupState, completedPopupsState } from '../../atoms';
 import '../../styles/owner/Ownerhome.css';
+import MyButton from '../../components/MyButton';
 
 const Ownerhome = () => {
   const [activeTab, setActiveTab] = useState('ongoing');
@@ -113,23 +114,28 @@ const Ownerhome = () => {
 
   return (
     <div className="ownerhome-container">
-      <div className="tab-buttons">
-        <button
-          onClick={() => handleTabChange('ongoing')}
-          className={`tab-button ${activeTab === 'ongoing' ? 'active' : ''}`}
-        >
-          진행중인 팝업
-        </button>
-        <button
-          onClick={() => handleTabChange('completed')}
-          className={`tab-button ${activeTab === 'completed' ? 'active' : ''}`}
-        >
-          진행했던 팝업
-        </button>
+
+      <div className="ownerhome-header">
+        <h1 className="ownerhome-header__title">오늘만 사장</h1>
+        <div className="ownerhome-tabs">
+          <button
+            className={`ownerhome-tab ${activeTab === "ongoing" ? "active" : ""}`}
+            onClick={() => handleTabChange("ongoing")}
+          >
+            진행중인 팝업
+          </button>
+          <button
+            className={`ownerhome-tab ${activeTab === "completed" ? "active" : ""}`}
+            onClick={() => handleTabChange("completed")}
+          >
+            진행했던 팝업
+          </button>
+        </div>
       </div>
-      {activeTab === 'ongoing' && (
+
+
+      {activeTab === "ongoing" && (
         <div className="popup-details">
-          <h2>등록한 팝업</h2>
           {popup ? (
             <div className="popup-info">
               <div className="popup-image">
@@ -137,12 +143,26 @@ const Ownerhome = () => {
               </div>
               <div className="popup-description">
                 <h3>{popup.name}</h3>
-                <p><strong>우편번호:</strong> {popup.address.zipcode}</p>
-                <p><strong>도로명 주소:</strong> {popup.address.street}</p>
-                <p><strong>상세 주소:</strong> {popup.address.detail}</p>
-                <p><strong>설명:</strong> {popup.description}</p>
-                <p><strong>팝업 기간:</strong> {popup.startDateTime} ~ {popup.endDateTime}</p>
-                <p><strong>영업 시간:</strong> {popup.businessTimes[0]?.openTime} ~ {popup.businessTimes[0]?.closeTime}</p>
+                <p>
+                  <strong>우편번호:</strong> {popup.address.zipcode}
+                </p>
+                <p>
+                  <strong>도로명 주소:</strong> {popup.address.street}
+                </p>
+                <p>
+                  <strong>상세 주소:</strong> {popup.address.detail}
+                </p>
+                <p>
+                  <strong>설명:</strong> {popup.description}
+                </p>
+                <p>
+                  <strong>팝업 기간:</strong> {popup.startDateTime} ~{" "}
+                  {popup.endDateTime}
+                </p>
+                <p>
+                  <strong>영업 시간:</strong> {popup.businessTimes[0]?.openTime}{" "}
+                  ~ {popup.businessTimes[0]?.closeTime}
+                </p>
               </div>
               <div className="menu-list">
                 {popup.menus.map((menu, index) => (
@@ -151,27 +171,48 @@ const Ownerhome = () => {
                       <span>메뉴 사진</span>
                     </div>
                     <div className="menu-description">
-                      <p><strong>메뉴 이름:</strong> {menu.name}</p>
-                      <p><strong>메뉴 설명:</strong> {menu.description}</p>
-                      <p><strong>메뉴 가격:</strong> {menu.price}원</p>
+                      <p>
+                        <strong>메뉴 이름:</strong> {menu.name}
+                      </p>
+                      <p>
+                        <strong>메뉴 설명:</strong> {menu.description}
+                      </p>
+                      <p>
+                        <strong>메뉴 가격:</strong> {menu.price}원
+                      </p>
                     </div>
                   </div>
                 ))}
               </div>
               <div className="action-buttons">
                 <button onClick={handleFeedbackClick}>피드백</button>
-                <button onClick={handleReservationStatusClick}>예약 현황</button>
-                <button onClick={() => handleClosePopup(popup.id)} className="close-button">종료</button>
-                <button onClick={() => handleDeletePopup(popup.id)} className="delete-button">삭제</button>
+                <button onClick={handleReservationStatusClick}>
+                  예약 현황
+                </button>
+                <button
+                  onClick={() => handleClosePopup(popup.id)}
+                  className="close-button"
+                >
+                  종료
+                </button>
+                <button
+                  onClick={() => handleDeletePopup(popup.id)}
+                  className="delete-button"
+                >
+                  삭제
+                </button>
               </div>
             </div>
           ) : (
-            <p>진행중인 팝업이 없습니다.</p>
+            <div>
+              <p>진행중인 팝업이 없습니다.</p>
+              <MyButton text="팝업 등록" type="default" onClick={handleRegisterClick}/>
+            </div>
           )}
-          <button onClick={handleRegisterClick} className="register-button">팝업 등록</button>
+          
         </div>
       )}
-      {activeTab === 'completed' && (
+      {activeTab === "completed" && (
         <div className="popup-list">
           {selectedCompletedPopup ? (
             <div className="popup-info">
@@ -180,11 +221,25 @@ const Ownerhome = () => {
               </div>
               <div className="popup-description">
                 <h3>{selectedCompletedPopup.name}</h3>
-                <p><strong>도로명 주소:</strong> {selectedCompletedPopup.address.street}</p>
-                <p><strong>우편번호:</strong> {selectedCompletedPopup.address.zipcode}</p>
-                <p><strong>상세 주소:</strong> {selectedCompletedPopup.address.detail}</p>
-                <p><strong>설명:</strong> {selectedCompletedPopup.description}</p>
-                <p><strong>기간:</strong> {selectedCompletedPopup.startDateTime} ~ {selectedCompletedPopup.endDateTime}</p>
+                <p>
+                  <strong>도로명 주소:</strong>{" "}
+                  {selectedCompletedPopup.address.street}
+                </p>
+                <p>
+                  <strong>우편번호:</strong>{" "}
+                  {selectedCompletedPopup.address.zipcode}
+                </p>
+                <p>
+                  <strong>상세 주소:</strong>{" "}
+                  {selectedCompletedPopup.address.detail}
+                </p>
+                <p>
+                  <strong>설명:</strong> {selectedCompletedPopup.description}
+                </p>
+                <p>
+                  <strong>기간:</strong> {selectedCompletedPopup.startDateTime}{" "}
+                  ~ {selectedCompletedPopup.endDateTime}
+                </p>
                 <div className="menu-list">
                   {selectedCompletedPopup.menus.map((menu, index) => (
                     <div key={index} className="menu-item">
@@ -192,33 +247,51 @@ const Ownerhome = () => {
                         <span>메뉴 사진</span>
                       </div>
                       <div className="menu-description">
-                        <p><strong>메뉴 이름:</strong> {menu.name}</p>
-                        <p><strong>메뉴 설명:</strong> {menu.description}</p>
-                        <p><strong>메뉴 가격:</strong> {menu.price}원</p>
+                        <p>
+                          <strong>메뉴 이름:</strong> {menu.name}
+                        </p>
+                        <p>
+                          <strong>메뉴 설명:</strong> {menu.description}
+                        </p>
+                        <p>
+                          <strong>메뉴 가격:</strong> {menu.price}원
+                        </p>
                       </div>
                     </div>
                   ))}
                 </div>
 
-                <button onClick={() => handleDeletePopup(selectedCompletedPopup.id)} className="delete-button">삭제</button>
+                <button
+                  onClick={() => handleDeletePopup(selectedCompletedPopup.id)}
+                  className="delete-button"
+                >
+                  삭제
+                </button>
               </div>
-              <button onClick={() => setSelectedCompletedPopup(null)} className="back-button">목록으로 돌아가기</button>
+              <button
+                onClick={() => setSelectedCompletedPopup(null)}
+                className="back-button"
+              >
+                목록으로 돌아가기
+              </button>
             </div>
-          ) : (
-            completedPopups.length > 0 ? (
-              completedPopups.map((popup) => (
-                <div key={popup.id} className="popup-summary" onClick={() => handlePopupClick(popup.id)}>
-                  <div className="popup-image">
-                    <span>매장 사진</span>
-                  </div>
-                  <div className="popup-name">
-                    <h3>{popup.name}</h3>
-                  </div>
+          ) : completedPopups.length > 0 ? (
+            completedPopups.map((popup) => (
+              <div
+                key={popup.id}
+                className="popup-summary"
+                onClick={() => handlePopupClick(popup.id)}
+              >
+                <div className="popup-image">
+                  <span>매장 사진</span>
                 </div>
-              ))
-            ) : (
-              <p>진행했던 팝업이 없습니다.</p>
-            )
+                <div className="popup-name">
+                  <h3>{popup.name}</h3>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>진행했던 팝업이 없습니다.</p>
           )}
         </div>
       )}

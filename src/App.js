@@ -36,7 +36,7 @@ const App = () => {
             <Route path="/owner/registration" element={<Layout headText="팝업 등록" footerType="owner"><OwnerRegistration /></Layout>} />
             <Route path="/owner/feedback/:popupId" element={<Layout showHeader={false} footerType="owner"><OwnerFeedback /></Layout>} />
             <Route path="/owner/reservationstatus/:popupId" element={<Layout showHeader={false} footerType="owner"><OwnerReservationStatus /></Layout>} />
-            <Route path="/owner/profile/:popupId" element={<Layout showHeader={false} footerType="owner"><OwnerProfile /></Layout>} />
+            <Route path="/owner/profile" element={<Layout showHeader={false} footerType="owner"><OwnerProfile /></Layout>} />
             
             <Route path="/customer/home" element={<Layout showHeader={false} footerType="customer"><Customerhome /></Layout>} />
             <Route path="/customer/myfeedback" element={<Layout showHeader={false} footerType="customer"><CustomerMyFeedback /></Layout>} />
