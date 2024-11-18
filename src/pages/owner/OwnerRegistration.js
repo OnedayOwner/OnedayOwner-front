@@ -390,7 +390,7 @@ const OwnerRegistration = () => {
                     />
                     <MyButton
                       text="메뉴 삭제"
-                      type="default"
+                      type="warning"
                       onClick={() => removeMenuItem(index)}
                     />
                   </div>

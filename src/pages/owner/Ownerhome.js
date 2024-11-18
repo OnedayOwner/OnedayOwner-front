@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { popupState, completedPopupsState } from '../../atoms';
+import { FaMapMarkerAlt, FaCalendarAlt, FaInfoCircle, FaClock } from 'react-icons/fa';
+import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import '../../styles/owner/Ownerhome.css';
 import MyButton from '../../components/MyButton';
 
@@ -10,13 +12,14 @@ const Ownerhome = () => {
   const [activeTab, setActiveTab] = useState('ongoing');
   const [popup, setPopup] = useRecoilState(popupState);
   const [completedPopups, setCompletedPopups] = useRecoilState(completedPopupsState);
-  const [selectedCompletedPopup, setSelectedCompletedPopup] = useState(null); // 선택된 팝업의 상세 정보를 저장
+  const [selectedCompletedPopup, setSelectedCompletedPopup] = useState(null);
+  const [coordinates, setCoordinates] = useState({ lat: 37.5665, lng: 126.9780 });
   const navigate = useNavigate();
   const token = localStorage.getItem('token') || '';
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
-    setSelectedCompletedPopup(null); // 탭을 변경할 때 상세보기 초기화
+    setSelectedCompletedPopup(null);
   };
 
   const handleFeedbackClick = () => navigate(`/owner/feedback/${popup.id}`);
@@ -29,62 +32,16 @@ const Ownerhome = () => {
   };
   const handleRegisterClick = () => navigate('/owner/registration');
 
-  useEffect(() => {
-    const fetchPopups = async () => {
-      try {
-        const ongoingResponse = await axios.get(`${process.env.REACT_APP_BACK_URL}/api/owners/popup`, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-        setPopup(ongoingResponse.data); // 진행중인 팝업 상태 설정
-      } catch (error) {
-        console.error('팝업 정보를 가져오는 중 오류가 발생했습니다:', error.response ? error.response.data : error.message);}
-      try {
-        const completedResponse = await axios.get(`${process.env.REACT_APP_BACK_URL}/api/owners/popup/history/list`, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-        setCompletedPopups(completedResponse.data); // 완료된 팝업 상태 설정
-
-      } catch (error) {
-        console.error('팝업 정보를 가져오는 중 오류가 발생했습니다:', error.response ? error.response.data : error.message);
-      }
-    };
-
-    fetchPopups();
-  }, [token]);
-
-  // 완료된 팝업 상세 정보를 조회하는 함수
   const fetchCompletedPopupDetails = async (popupId) => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_BACK_URL}/api/owners/popup/history/${popupId}`, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
-      setSelectedCompletedPopup(response.data); // 선택된 팝업의 상세 정보 저장
+      setSelectedCompletedPopup(response.data);
     } catch (error) {
       console.error('팝업 상세 정보를 가져오는 중 오류가 발생했습니다:', error.response ? error.response.data : error.message);
-    }
-  };
-
-  const handleDeletePopup = async (popupId) => {
-    if (window.confirm('이 팝업을 삭제하시겠습니까?')) {
-      try {
-        await axios.post(`${process.env.REACT_APP_BACK_URL}/api/owners/popup/${popupId}/delete`, null, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-        alert('팝업이 삭제되었습니다.');
-        // 삭제 후 현재 상태에서 해당 팝업을 제거
-        setCompletedPopups(completedPopups.filter(popup => popup.id !== popupId));
-      } catch (error) {
-        console.error('팝업 삭제 중 오류가 발생했습니다:', error.response ? error.response.data : error.message);
-        alert('팝업 삭제 중 오류가 발생했습니다.');
-      }
     }
   };
 
@@ -93,14 +50,12 @@ const Ownerhome = () => {
       try {
         await axios.post(`${process.env.REACT_APP_BACK_URL}/api/owners/popup/${popupId}/close`, null, {
           headers: {
-            'Authorization': `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
         });
         alert('팝업이 종료되었습니다.');
-
-        // 완료된 팝업 리스트에 추가
-        setCompletedPopups(prevCompleted => [...prevCompleted, popup]);
-        setPopup(null); // 진행중인 팝업 상태를 비움
+        setCompletedPopups((prev) => [...prev, popup]);
+        setPopup(null);
       } catch (error) {
         console.error('팝업 종료 중 오류가 발생했습니다:', error.response ? error.response.data : error.message);
         alert('팝업 종료 중 오류가 발생했습니다.');
@@ -108,24 +63,141 @@ const Ownerhome = () => {
     }
   };
 
+  const handleDeletePopup = async (popupId) => {
+    if (window.confirm('이 팝업을 삭제하시겠습니까?')) {
+      try {
+        await axios.post(`${process.env.REACT_APP_BACK_URL}/api/owners/popup/${popupId}/delete`, null, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        alert('팝업이 삭제되었습니다.');
+        setCompletedPopups((prev) => prev.filter((popup) => popup.id !== popupId));
+      } catch (error) {
+        console.error('팝업 삭제 중 오류가 발생했습니다:', error.response ? error.response.data : error.message);
+        alert('팝업 삭제 중 오류가 발생했습니다.');
+      }
+    }
+  };
+
+  useEffect(() => {
+    const fetchPopups = async () => {
+      try {
+        const ongoingResponse = await axios.get(`${process.env.REACT_APP_BACK_URL}/api/owners/popup`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setPopup(ongoingResponse.data);
+
+        const geocoder = new window.kakao.maps.services.Geocoder();
+        geocoder.addressSearch(ongoingResponse.data.address.street, (result, status) => {
+          if (status === window.kakao.maps.services.Status.OK) {
+            setCoordinates({ lat: parseFloat(result[0].y), lng: parseFloat(result[0].x) });
+          }
+        });
+      } catch (error) {
+        console.error('팝업 정보를 가져오는 중 오류가 발생했습니다:', error.response ? error.response.data : error.message);
+      }
+
+      try {
+        const completedResponse = await axios.get(`${process.env.REACT_APP_BACK_URL}/api/owners/popup/history/list`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setCompletedPopups(completedResponse.data);
+      } catch (error) {
+        console.error('팝업 정보를 가져오는 중 오류가 발생했습니다:', error.response ? error.response.data : error.message);
+      }
+    };
+
+    fetchPopups();
+  }, [token]);
+
   const handlePopupClick = (popupId) => {
-    fetchCompletedPopupDetails(popupId); // 팝업 클릭 시 상세 정보를 가져옴
+    fetchCompletedPopupDetails(popupId);
+  };
+
+  const renderPopupDetails = (popupData) => {
+    const formatTime = (time) => time.substring(0, 5);
+    return (
+      <div className="ownerhome-popup-container">
+        <img src="https://via.placeholder.com/100" className="ownerhome-popup-image" />
+
+        <h1 className="ownerhome-popup-name">{popupData.name}</h1>
+
+        <div className="ownerhome-popup-info">
+          <p className="ownerhome-popup-info-item">
+            <FaInfoCircle className="ownerhome-popup-icon" />
+            <span>{popupData.description}</span>
+          </p>
+          <p className="ownerhome-popup-info-item">
+            <FaMapMarkerAlt className="ownerhome-popup-icon" />
+            <span>{popupData.address.street}, {popupData.address.detail}</span>
+          </p>
+          <p className="ownerhome-popup-info-item">
+            <FaCalendarAlt className="ownerhome-popup-icon" />
+            <span>{new Date(popupData.startDateTime).toLocaleDateString()} ~ {new Date(popupData.endDateTime).toLocaleDateString()}</span>
+          </p>
+          <p className="ownerhome-popup-info-item">
+            <FaClock className="ownerhome-popup-icon" />
+            <span>
+              {popupData.businessTimes.map((time, index) => (
+                <span key={index}>
+                  {formatTime(time.openTime)} - {formatTime(time.closeTime)}
+                </span>
+              ))}
+            </span>
+          </p>
+        </div>
+
+        <div className="ownerhome-popup-map">
+          <h2>위치</h2>
+          <div className="ownerhome-popup-map-container">
+            <Map center={coordinates} style={{ width: '100%', height: '100%' }}>
+              <MapMarker position={coordinates} />
+            </Map>
+          </div>
+        </div>
+
+        <div className="ownerhome-popup-map">
+          <h2>메뉴</h2>
+          {popupData.menus.map((menu, index) => (
+            <div key={index} className="ownerhome-popup-menu-item">
+              <img src={menu.imageUrl || "https://via.placeholder.com/100"} alt={menu.name} className="ownerhome-popup-menu-image" />
+              <div className="ownerhome-popup-menu-info">
+                <h3 className="ownerhome-popup-menu-name">{menu.name}</h3>
+                <p className="ownerhome-popup-menu-description">{menu.description}</p>
+                <p className="ownerhome-popup-menu-price">₩{menu.price.toLocaleString()}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   };
 
   return (
     <div className="ownerhome-container">
-
       <div className="ownerhome-header">
-        <h1 className="ownerhome-header__title">오늘만 사장</h1>
+        <h1 className="ownerhome-header-title">
+          오늘만 사장
+          <span className="ownerhome-header-subtitle">for 사장님</span>
+        </h1>
         <div className="ownerhome-tabs">
           <button
-            className={`ownerhome-tab ${activeTab === "ongoing" ? "active" : ""}`}
+            className={`ownerhome-tab ${
+              activeTab === "ongoing" ? "active" : ""
+            }`}
             onClick={() => handleTabChange("ongoing")}
           >
             진행중인 팝업
           </button>
           <button
-            className={`ownerhome-tab ${activeTab === "completed" ? "active" : ""}`}
+            className={`ownerhome-tab ${
+              activeTab === "completed" ? "active" : ""
+            }`}
             onClick={() => handleTabChange("completed")}
           >
             진행했던 팝업
@@ -133,165 +205,88 @@ const Ownerhome = () => {
         </div>
       </div>
 
-
       {activeTab === "ongoing" && (
-        <div className="popup-details">
+        <div className="ownerhome-popup-details">
           {popup ? (
-            <div className="popup-info">
-              <div className="popup-image">
-                <span>팝업 매장 사진</span>
-              </div>
-              <div className="popup-description">
-                <h3>{popup.name}</h3>
-                <p>
-                  <strong>우편번호:</strong> {popup.address.zipcode}
-                </p>
-                <p>
-                  <strong>도로명 주소:</strong> {popup.address.street}
-                </p>
-                <p>
-                  <strong>상세 주소:</strong> {popup.address.detail}
-                </p>
-                <p>
-                  <strong>설명:</strong> {popup.description}
-                </p>
-                <p>
-                  <strong>팝업 기간:</strong> {popup.startDateTime} ~{" "}
-                  {popup.endDateTime}
-                </p>
-                <p>
-                  <strong>영업 시간:</strong> {popup.businessTimes[0]?.openTime}{" "}
-                  ~ {popup.businessTimes[0]?.closeTime}
-                </p>
-              </div>
-              <div className="menu-list">
-                {popup.menus.map((menu, index) => (
-                  <div key={index} className="menu-item">
-                    <div className="menu-image">
-                      <span>메뉴 사진</span>
-                    </div>
-                    <div className="menu-description">
-                      <p>
-                        <strong>메뉴 이름:</strong> {menu.name}
-                      </p>
-                      <p>
-                        <strong>메뉴 설명:</strong> {menu.description}
-                      </p>
-                      <p>
-                        <strong>메뉴 가격:</strong> {menu.price}원
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="action-buttons">
-                <button onClick={handleFeedbackClick}>피드백</button>
-                <button onClick={handleReservationStatusClick}>
-                  예약 현황
-                </button>
-                <button
+            <>
+              {renderPopupDetails(popup)}
+              <div className="ownerhome-action-buttons">
+                <MyButton
+                  text="피드백"
+                  type="default"
+                  onClick={handleFeedbackClick}
+                />
+                <MyButton
+                  text="예약 현황"
+                  type="default"
+                  onClick={handleReservationStatusClick}
+                />
+                <MyButton
+                  text="종료"
+                  type="alt"
                   onClick={() => handleClosePopup(popup.id)}
-                  className="close-button"
-                >
-                  종료
-                </button>
-                <button
+                />
+                <MyButton
+                  text="삭제"
+                  type="warning"
                   onClick={() => handleDeletePopup(popup.id)}
-                  className="delete-button"
-                >
-                  삭제
-                </button>
+                />
               </div>
-            </div>
+            </>
           ) : (
             <div>
-              <p>진행중인 팝업이 없습니다.</p>
-              <MyButton text="팝업 등록" type="default" onClick={handleRegisterClick}/>
+              <p className="ownerhome-no-popups">진행중인 팝업이 없습니다.</p>
+              <MyButton
+                text="팝업 등록"
+                type="default"
+                onClick={handleRegisterClick}
+              />
             </div>
           )}
-          
         </div>
       )}
-      {activeTab === "completed" && (
-        <div className="popup-list">
-          {selectedCompletedPopup ? (
-            <div className="popup-info">
-              <div className="popup-image">
-                <span>팝업 매장 사진</span>
-              </div>
-              <div className="popup-description">
-                <h3>{selectedCompletedPopup.name}</h3>
-                <p>
-                  <strong>도로명 주소:</strong>{" "}
-                  {selectedCompletedPopup.address.street}
-                </p>
-                <p>
-                  <strong>우편번호:</strong>{" "}
-                  {selectedCompletedPopup.address.zipcode}
-                </p>
-                <p>
-                  <strong>상세 주소:</strong>{" "}
-                  {selectedCompletedPopup.address.detail}
-                </p>
-                <p>
-                  <strong>설명:</strong> {selectedCompletedPopup.description}
-                </p>
-                <p>
-                  <strong>기간:</strong> {selectedCompletedPopup.startDateTime}{" "}
-                  ~ {selectedCompletedPopup.endDateTime}
-                </p>
-                <div className="menu-list">
-                  {selectedCompletedPopup.menus.map((menu, index) => (
-                    <div key={index} className="menu-item">
-                      <div className="menu-image">
-                        <span>메뉴 사진</span>
-                      </div>
-                      <div className="menu-description">
-                        <p>
-                          <strong>메뉴 이름:</strong> {menu.name}
-                        </p>
-                        <p>
-                          <strong>메뉴 설명:</strong> {menu.description}
-                        </p>
-                        <p>
-                          <strong>메뉴 가격:</strong> {menu.price}원
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
 
-                <button
-                  onClick={() => handleDeletePopup(selectedCompletedPopup.id)}
-                  className="delete-button"
-                >
-                  삭제
-                </button>
-              </div>
-              <button
+      {activeTab === "completed" && (
+        <div className="ownerhome-popup-list">
+          {selectedCompletedPopup ? (
+            <div className="ownerhome-popup-details">
+              {renderPopupDetails(selectedCompletedPopup)}
+              <MyButton
+                text="팝업 삭제"
+                type="warning"
+                onClick={() => handleDeletePopup(selectedCompletedPopup.id)}
+              />
+              <MyButton
+                text="목록으로 돌아가기"
+                type="default"
                 onClick={() => setSelectedCompletedPopup(null)}
-                className="back-button"
-              >
-                목록으로 돌아가기
-              </button>
+              />
             </div>
           ) : completedPopups.length > 0 ? (
             completedPopups.map((popup) => (
               <div
                 key={popup.id}
-                className="popup-summary"
+                className="ownerhome-popup-summary"
                 onClick={() => handlePopupClick(popup.id)}
               >
-                <div className="popup-image">
-                  <span>매장 사진</span>
-                </div>
-                <div className="popup-name">
-                  <h3>{popup.name}</h3>
+                <img
+                  src="https://via.placeholder.com/100"
+                  className="ownerhome-popup-menu-image"
+                />
+                <div className="ownerhome-popup-menu-info">
+                  <h3 className="ownerhome-popup-menu-name">{popup.name}</h3>
+                  <p className="ownerhome-popup-menu-description">
+                    {popup.address.street}, {popup.address.detail}
+                  </p>
+                  <p className="ownerhome-popup-menu-description">
+                    {new Date(popup.startDateTime).toLocaleDateString()} ~{" "}
+                    {new Date(popup.endDateTime).toLocaleDateString()}
+                  </p>
                 </div>
               </div>
             ))
           ) : (
-            <p>진행했던 팝업이 없습니다.</p>
+            <p className="ownerhome-no-popups">진행했던 팝업이 없습니다.</p>
           )}
         </div>
       )}
