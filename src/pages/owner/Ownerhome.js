@@ -22,7 +22,6 @@ const Ownerhome = () => {
     setSelectedCompletedPopup(null);
   };
 
-  const handleFeedbackClick = () => navigate(`/owner/feedback/${popup.id}`);
   const handleReservationStatusClick = () => {
     if (popup) {
       navigate(`/owner/reservationstatus/${popup.id}`);
@@ -212,22 +211,17 @@ const Ownerhome = () => {
               {renderPopupDetails(popup)}
               <div className="ownerhome-action-buttons">
                 <MyButton
-                  text="피드백"
-                  type="default"
-                  onClick={handleFeedbackClick}
-                />
-                <MyButton
                   text="예약 현황"
                   type="default"
                   onClick={handleReservationStatusClick}
                 />
                 <MyButton
-                  text="종료"
+                  text="팝업 종료"
                   type="alt"
                   onClick={() => handleClosePopup(popup.id)}
                 />
                 <MyButton
-                  text="삭제"
+                  text="팝업 삭제"
                   type="warning"
                   onClick={() => handleDeletePopup(popup.id)}
                 />

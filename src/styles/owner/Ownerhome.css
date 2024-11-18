@@ -23,7 +23,6 @@
   font-style: italic;
 }
 
-/* Tabs */
 .ownerhome-tabs {
   width: 100%;
   display: flex;
@@ -46,7 +45,6 @@
   color: white;
 }
 
-/* Popup List and Summary */
 .ownerhome-popup-list {
   display: flex;
   flex-direction: column;
@@ -200,6 +198,7 @@
   border-radius: 12px;
   width: 100%;
   display: flex;
+  margin-top: 0;
 }
 
 .ownerhome-action-buttons {

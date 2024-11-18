@@ -1,91 +1,106 @@
-.feedback-container {
-  margin: 20px;
-  font-family: Arial, sans-serif;
+.owner-feedback-container {
+  padding: 10px;
 }
 
-.feedback-list {
+.owner-feedback-list {
   margin-top: 20px;
 }
 
-.feedback-item {
-  border: 1px solid #00796b;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  padding: 10px;
-  background-color: #ffffff;
-  transition: box-shadow 0.3s;
-}
-
-.feedback-item:hover {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.feedback-header {
-  cursor: pointer;
+.owner-feedback-items {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.feedback-rating {
-  font-weight: bold;
-  color: #00796b;
+.owner-feedback-item {
+  padding: 15px;
+  border-radius: 12px;
+  background-color: #f5f5f5;
 }
 
-.feedback-comment {
-  color: #555;
+.owner-feedback-star-rating {
+  position: relative;
+  font-size: 2rem;
+  color: #ddd;
+  display: inline-block;
 }
 
-.feedback-details {
+.owner-feedback-star-rating span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  color: #ffd700;
+  overflow: hidden;
+}
+
+.owner-feedback-item-details {
   margin-top: 10px;
 }
 
-.menu-feedback-button {
-  background-color: #00796b; /* 버튼 배경색 */
-  color: white; /* 글자색 */
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-  margin-bottom: 10px;
+.owner-feedback-item-comment {
+  font-size: 15px;
+  color: #888;
+  margin: 3px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.menu-feedback-button:hover {
-  background-color: #005f4f; /* 버튼 hover 색상 */
+.owner-feedback-header {
+  text-align: left;
+  align-self: flex-start;
+  margin-top: 4vh;
 }
 
-.menu-feedback-list {
-  list-style-type: none;
-  padding: 0;
+.owner-feedback-header-title {
+  margin-left: 25px;
+  font-size: 35px;
+  font-weight: 300;
+  color: #004d40;
 }
 
-.menu-name {
-  font-weight: bold;
-  color: #00796b;
-  cursor: pointer;
-}
-
-.menu-feedback {
-  color: #555;
-  margin-left: 10px;
-}
-
-.full-feedback {
-  margin-top: 10px;
+.owner-feedback-header-subtitle {
+  font-size: 17px;
+  margin-left: 3px;
+  font-weight: 400;
+  color: #004d40;
   font-style: italic;
 }
 
-.more-button {
-  background-color: #00796b; /* 더보기 버튼 배경색 */
-  color: white; /* 글자색 */
-  border: none;
-  border-radius: 5px;
-  padding: 10px 15px;
-  cursor: pointer;
-  margin-top: 10px;
-  width: 100%; /* 버튼의 너비를 100%로 설정 */
-  box-sizing: border-box; /* 패딩과 보더를 포함한 박스 모델 설정 */
+.owner-feedback-tabs {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-.more-button:hover {
-  background-color: #005f4f; /* 더보기 버튼 hover 색상 */
+.owner-feedback-tab {
+  width: 100%;
+  padding: 10px 20px;
+  border: 1px solid #00796b;
+  background-color: white;
+  color: #00796b;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.owner-feedback-tab.active {
+  background-color: #00796b;
+  color: white;
+}
+
+.owner-feedback-no-popups {
+  background-color: #f5f5f5;
+  font-size: 15px;
+  color: #555;
+  height: 150px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  width: 100%;
+  display: flex;
+  margin-top: 0px;
 }
