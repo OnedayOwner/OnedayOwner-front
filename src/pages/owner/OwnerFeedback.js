@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
+import axiosInstance from "../login/axios";
 import { FaInfoCircle } from 'react-icons/fa';
 import '../../styles/owner/OwnerFeedback.css';
 
@@ -12,26 +12,11 @@ const OwnerFeedback = () => {
   useEffect(() => {
     const fetchPopupAndFeedbacks = async () => {
       try {
-        const token = localStorage.getItem('token');
-
-        const popupResponse = await axios.get(
-          `${process.env.REACT_APP_BACK_URL}/api/owners/popup`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
+        const popupResponse = await axiosInstance.get('/owners/popup');
         const ongoingPopup = popupResponse.data;
 
-        const feedbackResponse = await axios.get(
-          `${process.env.REACT_APP_BACK_URL}/api/owners/feedbacks/list/${ongoingPopup.id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+        const feedbackResponse = await axiosInstance.get(
+          `/owners/feedbacks/list/${ongoingPopup.id}`
         );
 
         setFeedbacks(feedbackResponse.data);

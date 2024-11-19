@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from "../login/axios";
 import DatePicker from 'react-datepicker';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUtensils } from '@fortawesome/free-solid-svg-icons';
@@ -16,15 +16,7 @@ const OwnerReservationStatus = ({ startDate, endDate }) => {
 
   const fetchPopupId = async () => {
     try {
-      const token = localStorage.getItem('token');
-      const popupResponse = await axios.get(
-        `${process.env.REACT_APP_BACK_URL}/api/owners/popup`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const popupResponse = await axiosInstance.get('/owners/popup');
       setPopupId(popupResponse.data.id);
     } catch (error) {
       if (error.response && error.response.status === 404) {
@@ -42,14 +34,11 @@ const OwnerReservationStatus = ({ startDate, endDate }) => {
     const day = date.getDate();
 
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_BACK_URL}/api/owners/popup/${popupId}/reservation/day`,
+      const response = await axiosInstance.post(
+        `/owners/popup/${popupId}/reservation/day`,
         null,
         {
           params: { year, month, day },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
         }
       );
       setMenuCounts(response.data);
@@ -64,14 +53,11 @@ const OwnerReservationStatus = ({ startDate, endDate }) => {
     const month = date.getMonth() + 1;
 
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_BACK_URL}/api/owners/popup/${popupId}/reservation/month`,
+      const response = await axiosInstance.post(
+        `/owners/popup/${popupId}/reservation/month`,
         null,
         {
           params: { year, month },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
         }
       );
       const dailySummary = response.data.find(

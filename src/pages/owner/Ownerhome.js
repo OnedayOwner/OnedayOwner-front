@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { popupState, completedPopupsState } from '../../atoms';
+import axiosInstance from '../login/axios';
 import { FaMapMarkerAlt, FaCalendarAlt, FaInfoCircle, FaClock } from 'react-icons/fa';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import '../../styles/owner/Ownerhome.css';
@@ -15,7 +15,6 @@ const Ownerhome = () => {
   const [selectedCompletedPopup, setSelectedCompletedPopup] = useState(null);
   const [coordinates, setCoordinates] = useState({ lat: 37.5665, lng: 126.9780 });
   const navigate = useNavigate();
-  const token = localStorage.getItem('token') || '';
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -26,11 +25,7 @@ const Ownerhome = () => {
 
   const fetchCompletedPopupDetails = async (popupId) => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACK_URL}/api/owners/popup/history/${popupId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axiosInstance.get(`/owners/popup/history/${popupId}`);
       setSelectedCompletedPopup(response.data);
     } catch (error) {
       console.error('팝업 상세 정보를 가져오는 중 오류가 발생했습니다:', error.response ? error.response.data : error.message);
@@ -40,11 +35,7 @@ const Ownerhome = () => {
   const handleClosePopup = async (popupId) => {
     if (window.confirm('이 팝업을 종료하시겠습니까?')) {
       try {
-        await axios.post(`${process.env.REACT_APP_BACK_URL}/api/owners/popup/${popupId}/close`, null, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        await axiosInstance.post(`/owners/popup/${popupId}/close`);
         alert('팝업이 종료되었습니다.');
         setCompletedPopups((prev) => [...prev, popup]);
         setPopup(null);
@@ -58,11 +49,7 @@ const Ownerhome = () => {
   const handleDeletePopup = async (popupId) => {
     if (window.confirm('이 팝업을 삭제하시겠습니까?')) {
       try {
-        await axios.post(`${process.env.REACT_APP_BACK_URL}/api/owners/popup/${popupId}/delete`, null, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        await axiosInstance.post(`/owners/popup/${popupId}/delete`);
         alert('팝업이 삭제되었습니다.');
         setCompletedPopups((prev) => prev.filter((popup) => popup.id !== popupId));
       } catch (error) {
@@ -75,11 +62,7 @@ const Ownerhome = () => {
   useEffect(() => {
     const fetchPopups = async () => {
       try {
-        const ongoingResponse = await axios.get(`${process.env.REACT_APP_BACK_URL}/api/owners/popup`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const ongoingResponse = await axiosInstance.get(`/owners/popup`);
         setPopup(ongoingResponse.data);
 
         const geocoder = new window.kakao.maps.services.Geocoder();
@@ -93,11 +76,7 @@ const Ownerhome = () => {
       }
 
       try {
-        const completedResponse = await axios.get(`${process.env.REACT_APP_BACK_URL}/api/owners/popup/history/list`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const completedResponse = await axiosInstance.get(`/owners/popup/history/list`);
         setCompletedPopups(completedResponse.data);
       } catch (error) {
         console.error('팝업 정보를 가져오는 중 오류가 발생했습니다:', error.response ? error.response.data : error.message);
@@ -105,7 +84,7 @@ const Ownerhome = () => {
     };
 
     fetchPopups();
-  }, [token]);
+  }, []);
 
   const handlePopupClick = (popupId) => {
     fetchCompletedPopupDetails(popupId);
