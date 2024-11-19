@@ -1,7 +1,7 @@
 import { FaStar, FaPencilAlt, FaCoins, FaCalendarAlt, FaUserFriends } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import instance from '../login/axios';
+import axiosInstance from '../login/axios';
 import "../../styles/customer/CustomerFeedbackDetail.css";
 
 const CustomerFeedbackDetail = () => {
@@ -13,7 +13,7 @@ const CustomerFeedbackDetail = () => {
   useEffect(() => {
     const fetchFeedbackData = async () => {
       try {
-        const response = await instance.get(`/customers/feedbacks/${feedbackId}`);
+        const response = await axiosInstance.get(`/customers/feedbacks/${feedbackId}`);
         setFeedbackData(response.data);
       } catch (error) {
         console.error("Error fetching feedback data:", error);

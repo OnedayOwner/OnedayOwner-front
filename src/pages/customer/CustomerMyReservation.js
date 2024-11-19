@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import instance from '../login/axios'; 
+import axiosInstance from '../login/axios'; 
 import '../../styles/customer/CustomerMyReservation.css';
 
 const CustomerMyReservation = () => {
@@ -14,7 +14,7 @@ const CustomerMyReservation = () => {
     const fetchUpcomingReservations = async () => {
         try {
             setLoading(true);
-            const response = await instance.get('/customers/reservations/upcoming'); 
+            const response = await axiosInstance.get('/customers/reservations/upcoming'); 
             setUpcomingReservations(response.data);
         } catch (err) {
             console.error('Error fetching upcoming reservations:', err);
@@ -27,7 +27,7 @@ const CustomerMyReservation = () => {
     const fetchCompletedReservations = async () => {
         try {
             setLoading(true);
-            const response = await instance.get('/customers/reservations/completed'); 
+            const response = await axiosInstance.get('/customers/reservations/completed'); 
             setCompletedReservations(response.data);
         } catch (err) {
             console.error('Error fetching completed reservations:', err);

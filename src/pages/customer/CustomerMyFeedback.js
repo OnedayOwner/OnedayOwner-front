@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaInfoCircle } from 'react-icons/fa';
-import instance from '../login/axios';
+import axiosInstance from '../login/axios';
 import '../../styles/customer/CustomerMyFeedback.css';
 
 const CustomerMyFeedback = () => {
@@ -16,7 +16,7 @@ const CustomerMyFeedback = () => {
     const fetchWritableReservations = async () => {
         try {
             setLoading(true);
-            const response = await instance.get('/customers/reservations/completed/unreviewed');
+            const response = await axiosInstance.get('/customers/reservations/completed/unreviewed');
             setWritableReservations(response.data);
         } catch (err) {
             console.error('Error fetching writable reservations:', err);
@@ -29,7 +29,7 @@ const CustomerMyFeedback = () => {
     const fetchFeedbacks = async () => {
         try {
             setLoading(true);
-            const response = await instance.get('/customers/feedbacks/list');
+            const response = await axiosInstance.get('/customers/feedbacks/list');
             setFeedbacks(response.data);
         } catch (err) {
             console.error('Error fetching feedbacks:', err);
