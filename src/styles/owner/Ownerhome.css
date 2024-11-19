@@ -60,7 +60,7 @@
   transition: background-color 0.3s;
 }
 
-.ownerhome-popup-summary:hover {
+.ownerhome-popup-summary:active {
   background-color: #e0e0e0;
 }
 

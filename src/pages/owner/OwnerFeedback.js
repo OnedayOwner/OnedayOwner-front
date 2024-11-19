@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
+import { FaInfoCircle } from 'react-icons/fa';
 import '../../styles/owner/OwnerFeedback.css';
 
 const OwnerFeedback = () => {
@@ -53,10 +54,7 @@ const OwnerFeedback = () => {
   return (
     <div className="owner-feedback-container">
       <div className="owner-feedback-header">
-        <h1 className="owner-feedback-header-title">
-          피드백
-          <span className="owner-feedback-header-subtitle">for 사장님</span>
-        </h1>
+        <h1 className="owner-feedback-header-title">피드백</h1>
         <div className="owner-feedback-tabs">
           <button
             className={`owner-feedback-tab ${
@@ -78,6 +76,10 @@ const OwnerFeedback = () => {
       </div>
       {activeTab === "total" && (
         <div className="owner-feedback-list">
+          <p className="owner-feedback-instruction">
+            <FaInfoCircle className="owner-feedback-icon" />
+            고객님들이 직접 작성하신 피드백입니다.
+          </p>
           {noPopupMessage ? (
             <p className="owner-feedback-no-popups">{noPopupMessage}</p>
           ) : (

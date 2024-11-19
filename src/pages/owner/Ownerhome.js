@@ -22,13 +22,6 @@ const Ownerhome = () => {
     setSelectedCompletedPopup(null);
   };
 
-  const handleReservationStatusClick = () => {
-    if (popup) {
-      navigate(`/owner/reservationstatus/${popup.id}`);
-    } else {
-      alert("현재 진행 중인 팝업이 없습니다.");
-    }
-  };
   const handleRegisterClick = () => navigate('/owner/registration');
 
   const fetchCompletedPopupDetails = async (popupId) => {
@@ -209,23 +202,16 @@ const Ownerhome = () => {
           {popup ? (
             <>
               {renderPopupDetails(popup)}
-              <div className="ownerhome-action-buttons">
-                <MyButton
-                  text="예약 현황"
-                  type="default"
-                  onClick={handleReservationStatusClick}
-                />
-                <MyButton
-                  text="팝업 종료"
-                  type="alt"
-                  onClick={() => handleClosePopup(popup.id)}
-                />
-                <MyButton
-                  text="팝업 삭제"
-                  type="warning"
-                  onClick={() => handleDeletePopup(popup.id)}
-                />
-              </div>
+              <MyButton
+                text="팝업 삭제"
+                type="warning"
+                onClick={() => handleDeletePopup(popup.id)}
+              />
+              <MyButton
+                text="팝업 종료"
+                type="default"
+                onClick={() => handleClosePopup(popup.id)}
+              />
             </>
           ) : (
             <div>
