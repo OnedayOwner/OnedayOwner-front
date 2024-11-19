@@ -103,7 +103,7 @@ const CustomerMyReservation = () => {
             ) : activeTab === 'upcoming' ? (
                 <div className="customer-myreservation-list">
                     {upcomingReservations.length === 0 ? (
-                        <p className="customer-myreservation-empty">방문 예정인 팝업이 없습니다.</p>
+                        <p className="customer-myreservation-no-popups">방문 예정인 팝업이 없습니다.</p>
                     ) : (
                         upcomingReservations.map(renderReservationItem)
                     )}
@@ -111,7 +111,7 @@ const CustomerMyReservation = () => {
             ) : (
                 <div className="customer-myreservation-list">
                     {completedReservations.length === 0 ? (
-                        <p className="customer-myreservation-empty">방문 완료한 팝업이 없습니다.</p>
+                        <p className="customer-myreservation-no-popups">방문 완료한 팝업이 없습니다.</p>
                     ) : (
                         completedReservations.map(renderReservationItem)
                     )}
