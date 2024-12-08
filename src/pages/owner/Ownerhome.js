@@ -94,7 +94,7 @@ const Ownerhome = () => {
     const formatTime = (time) => time.substring(0, 5);
     return (
       <div className="ownerhome-popup-container">
-        <img src="https://via.placeholder.com/100" className="ownerhome-popup-image" />
+        <img src={popupData.imageUrl || "https://via.placeholder.com/100"} className="ownerhome-popup-image" />
 
         <h1 className="ownerhome-popup-name">{popupData.name}</h1>
 
@@ -229,7 +229,7 @@ const Ownerhome = () => {
                 onClick={() => handlePopupClick(popup.id)}
               >
                 <img
-                  src="https://via.placeholder.com/100"
+                  src={popup.imageUrl || "https://via.placeholder.com/100"}
                   className="ownerhome-popup-menu-image"
                 />
                 <div className="ownerhome-popup-menu-info">

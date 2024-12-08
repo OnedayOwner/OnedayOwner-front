@@ -56,7 +56,7 @@ const CustomerMyReservation = () => {
             onClick={() => handleReservationClick(reservation.id)}
         >
             <img
-                src={reservation.menuImageUrl || 'https://via.placeholder.com/100'}
+                src={reservation.imageUrl || 'https://via.placeholder.com/100'}
                 alt="restaurant"
                 className="reservation-item__image"
             />

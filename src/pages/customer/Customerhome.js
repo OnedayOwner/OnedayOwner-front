@@ -115,7 +115,7 @@ const Customerhome = () => {
                   className="customer-home-popup-slide" 
                   onClick={() => handlePopupClick(popup.id)}
                 >
-                  <img src={popup.menuImageUrl || "https://via.placeholder.com/150"} alt={popup.name} className="customer-home-popup-image" />
+                  <img src={popup.imageUrl || "https://via.placeholder.com/150"} alt={popup.name} className="customer-home-popup-image" />
                   <div className="customer-home-popup-info">
                     <h3 className="customer-home-popup-name">{popup.name}</h3>
                     <p className="customer-home-popup-duration">
@@ -150,7 +150,7 @@ const Customerhome = () => {
                   className="customer-home-popup-slide" 
                   onClick={() => handlePopupClick(popup.id)}
                 >
-                  <img src={popup.menuImageUrl || "https://via.placeholder.com/150"} alt={popup.name} className="customer-home-popup-image" />
+                  <img src={popup.imageUrl || "https://via.placeholder.com/150"} alt={popup.name} className="customer-home-popup-image" />
                   <div className="customer-home-popup-info">
                     <h3 className="customer-home-popup-name">{popup.name}</h3>
                     <p className="customer-home-popup-duration">

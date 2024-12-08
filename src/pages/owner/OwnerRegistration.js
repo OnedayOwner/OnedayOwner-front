@@ -102,6 +102,9 @@ const OwnerRegistration = () => {
   };
 
   const handleRegisterClick = async () => {
+    const formData = new FormData();
+  
+    // Popup form 데이터 추가
     const data = {
       name: storeName,
       startDateTime: startDate ? new Date(startDate).toISOString() : null,
@@ -112,21 +115,41 @@ const OwnerRegistration = () => {
         street: roadAddress,
         detail: detailAddress,
       },
-      businessTimes: [{
-        openTime: businessStartHours ? businessStartHours + ':00' : null,
-        closeTime: businessEndHours ? businessEndHours + ':00' : null,
-        reservationTimeUnit: 30,
-        maxPeoplePerTime: Number(maxReservations),
-      }],
+      businessTimes: [
+        {
+          openTime: businessStartHours ? businessStartHours + ':00' : null,
+          closeTime: businessEndHours ? businessEndHours + ':00' : null,
+          reservationTimeUnit: 30,
+          maxPeoplePerTime: Number(maxReservations),
+        },
+      ],
       menuForms: menuItems.map((item) => ({
         name: item.name,
         description: item.description,
         price: Number(item.price),
       })),
     };
-
+  
+    formData.append('form', new Blob([JSON.stringify(data)], { type: 'application/json' }));
+  
+    // 팝업 이미지 추가
+    formData.append('file', storeImage || new Blob());
+  
+    // 메뉴 이미지 추가 (없는 경우 null로 채움)
+    menuImages.forEach((image, index) => {
+      if (image) {
+        formData.append(`menuFiles`, image); // 파일이 있는 경우 추가
+      } else {
+        formData.append(`menuFiles`, new Blob()); // 없는 경우 빈 Blob 추가
+      }
+    });
+  
     try {
-      const response = await axiosInstance.post('/owners/popup/register', data);
+      const response = await axiosInstance.post('/owners/popup/register', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       alert('등록이 완료되었습니다.');
       navigate('/owner/home');
     } catch (error) {

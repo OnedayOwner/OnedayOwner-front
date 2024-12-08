@@ -62,7 +62,7 @@ const CustomerMyFeedback = () => {
             onClick={() => handleReservationClick(reservation.id)}
         >
             <img
-                src={reservation.menuImageUrl || 'https://via.placeholder.com/100'}
+                src={reservation.imageUrl || 'https://via.placeholder.com/100'}
                 alt="restaurant"
                 className="customer-myfeedback-reservation-item__image"
             />
