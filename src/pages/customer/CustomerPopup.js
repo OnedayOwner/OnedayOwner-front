@@ -39,7 +39,7 @@ const CustomerPopup = () => {
         );
     }
 
-    const { name, address, description, menus, startDateTime, endDateTime, businessTimes } = popupData;
+    const { imageUrl, name, address, description, menus, startDateTime, endDateTime, businessTimes } = popupData;
 
     const formatTime = (time) => time.substring(0, 5);
 
@@ -50,8 +50,7 @@ const CustomerPopup = () => {
     return (
         <div className="customer-popup-container">
             <div className="customer-popup-images">
-                <img src={menus[0]?.imageUrl || "https://via.placeholder.com/200"} alt="Popup Image 1" className="customer-popup-image" />
-                <img src={menus[1]?.imageUrl || "https://via.placeholder.com/200"} alt="Popup Image 2" className="customer-popup-image" />
+                <img src={imageUrl || "https://via.placeholder.com/200"} alt="Popup Image 1" className="customer-popup-image" />
             </div>
 
             <h1 className="customer-popup-restaurant-name">{name}</h1>
