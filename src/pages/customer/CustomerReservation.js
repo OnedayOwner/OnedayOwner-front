@@ -104,6 +104,12 @@ const CustomerReservation = () => {
             <div className="customer-reservation-timeslots">
                 {popupData?.reservationTimes
                     .filter(time => new Date(time.reservationDate).toDateString() === selectedDate.toDateString())
+                    .sort((a, b) => {
+                        // startTime을 포함한 Date 객체로 비교
+                        const timeA = new Date(`${a.reservationDate}T${a.startTime}`);
+                        const timeB = new Date(`${b.reservationDate}T${b.startTime}`);
+                        return timeA - timeB; // 시간순으로 오름차순 정렬
+                    })
                     .map(time => (
                         <div 
                             key={time.id} 

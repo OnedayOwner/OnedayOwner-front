@@ -87,10 +87,6 @@ const CustomerReservationDetail = () => {
             )}
 
             <div className="customer-reservation-detail-reservation-button">
-                <MyButton text="피드백 작성하기" type="default" onClick={() => handleFeedbackClick(popupSummaryForReservation.id)} />
-            </div>  {/*피드백 완성 후에 지우기*/}
-
-            <div className="customer-reservation-detail-reservation-button">
                 <MyButton text="팝업 페이지로 이동하기" type="alt" onClick={() => handlePopupClick(popupSummaryForReservation.id)} />
             </div>
 
